@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in — IdeaBrowser KR</title>
+  <link rel="stylesheet" href="styles.css?v=free1">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <main class="container">
+    <h1 class="brand">Sign in / Sign up</h1>
+    <div class="card">
+      <h3>Google로 계속하기</h3>
+      <button id="btnGoogle" class="btn">Sign in with Google</button>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3>이메일로 가입</h3>
+      <p class="tiny muted">가입 후 이메일 인증 메일을 발송합니다. 인증 전에는 로그인할 수 없습니다.</p>
+      <div class="two-cols">
+        <input id="email" type="email" placeholder="email@example.com">
+        <input id="pw" type="password" placeholder="password (8+ chars)">
+      </div>
+      <div style="margin-top:8px">
+        <button id="btnSignup" class="btn">Sign up (send verification)</button>
+        <button id="btnSignin" class="btn">Sign in</button>
+        <button id="btnResend" class="btn ghost">Resend verification</button>
+      </div>
+      <div id="authMsg" class="para tiny" style="margin-top:8px"></div>
+    </div>
+    <div style="margin-top:14px">
+      <a class="btn" href="./">← Back to site</a>
+    </div>
+  </main>
+
+  <script src="auth.js?v=free1"></script>
+</body>
+</html>
