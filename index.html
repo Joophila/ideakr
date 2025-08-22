@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IdeaBrowser KR</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=free1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 </head>
 <body>
 <header class="container site-header">
   <h1 class="brand">Idea of the Day</h1>
   <nav class="topnav">
     <a href="#home" class="nav-link">Today</a>
-    <a href="#ideas" class="nav-link">Ideas</a>
-    <a href="#trends" class="nav-link">Trends</a>
-    <a href="#insights" class="nav-link">Insights</a>
-    <button id="proToggle" class="btn ghost">Pro: <span id="proState">OFF</span></button>
+    <a href="#upgrade" class="nav-link">Upgrade plan</a>
   </nav>
 </header>
 
@@ -37,7 +37,7 @@
         <div id="todayTags" class="badges"></div>
       </header>
 
-      <!-- Summary row: description left + scores right -->
+      <!-- Summary row -->
       <section class="summary-grid">
         <div class="summary-left card">
           <h3 class="subttl">Problem</h3>
@@ -66,7 +66,7 @@
         </aside>
       </section>
 
-      <!-- Trend + panel -->
+      <!-- Trend + Community -->
       <section class="trend-grid">
         <div class="card">
           <header class="row-between">
@@ -119,31 +119,39 @@
     </article>
   </section>
 
-  <!-- Keep the old list views for browsing -->
-  <section id="ideas" class="view hidden">
-    <h2>Ideas</h2>
-    <div class="controls">
-      <input id="searchIdeas" placeholder="검색: 제목/요약" />
-      <select id="tagFilter"><option value="">태그 전체</option></select>
+  <!-- Upgrade (Pro preview only) -->
+  <section id="upgrade" class="view hidden">
+    <h2>Upgrade plan</h2>
+    <p class="muted">모든 핵심 정보는 무료로 제공합니다. 아래 기능은 업그레이드 시 추가됩니다.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>🔎 Research Your Ideas <span class="badge">Pro</span></h3>
+        <p class="para">24시간 내 40단계 리서치 리포트 자동생성. 출처·지표·리스크 정리.</p>
+      </div>
+      <div class="card">
+        <h3>🔧 Idea Builder <span class="badge">Pro</span></h3>
+        <p class="para">리서치를 실행 가능한 빌드 플랜으로 변환. KPI·예산·타임라인 포함.</p>
+      </div>
+      <div class="card">
+        <h3>💬 Chat & Strategize <span class="badge">Pro</span></h3>
+        <p class="para">아이디어별 맞춤 코파일럿으로 심층 전략 질의응답.</p>
+      </div>
     </div>
-    <div id="ideas-list" class="grid"></div>
-  </section>
-
-  <section id="trends" class="view hidden">
-    <h2>Trends</h2>
-    <div id="trends-list" class="grid"></div>
-  </section>
-
-  <section id="insights" class="view hidden">
-    <h2>Insights</h2>
-    <div id="insights-list" class="grid"></div>
+    <div class="card" style="margin-top:12px">
+      <h3>계정이 없나요?</h3>
+      <p class="para">Google 또는 이메일로 가입 가능합니다. 이메일 가입 시 본인인증(이메일 검증)이 필요합니다.</p>
+      <a href="auth.html" class="btn">Sign in / Sign up</a>
+    </div>
   </section>
 </main>
 
 <footer class="container footer">
   <span class="muted">© IdeaBrowser KR</span>
+  <span class="sep"></span>
+  <a class="muted" href="auth.html">Sign in</a>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=free1"></script>
 </body>
 </html>
+
