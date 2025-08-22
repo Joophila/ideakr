@@ -1,9 +1,9 @@
-
 :root {
   --bg:#0b1020; --card:#111a2b; --card2:#0d1429; --text:#e6ecff; --muted:#9fb0ff66;
   --accent:#7aa2ff; --chip:#1f2d59; --ok:#7df7b5; --warn:#ffe08a; --bad:#ffb3b3;
 }
-*{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,'Noto Sans KR',Arial;background:var(--bg);color:var(--text)}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,'Noto Sans KR',Arial;background:var(--bg);color:var(--text)}
 .container{width:min(1100px,92%);margin:0 auto;padding:18px 0}
 .site-header{display:flex;align-items:center;justify-content:space-between}
 .brand{font-size:40px;background:linear-gradient(90deg,#6aa3ff,#a3b3ff);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
@@ -54,9 +54,7 @@
 .info-meta{opacity:.8;font-size:12px;margin-top:4px}
 
 .footer{border-top:1px solid #1c2856;margin-top:18px;padding:18px 0}
-
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.controls{display:flex;gap:10px;margin-bottom:10px}
 input,select{padding:8px 10px;border-radius:8px;border:1px solid #2b3761;background:#0f1630;color:var(--text)}
 
 @media (max-width: 920px){
