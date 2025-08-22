@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Idea Browser KR (Static)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="container">
+  <h1>Idea Browser KR</h1>
+  <nav>
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#ideas" class="nav-link">Ideas</a>
+    <a href="#trends" class="nav-link">Trends</a>
+    <a href="#insights" class="nav-link">Insights</a>
+  </nav>
+</header>
+<main class="container">
+  <section id="home" class="view">
+    <h2>오늘의 아이디어 Top 3</h2>
+    <div id="home-cards" class="grid"></div>
+  </section>
+  <section id="ideas" class="view hidden">
+    <h2>Ideas</h2>
+    <div class="controls">
+      <input id="searchIdeas" placeholder="검색: 제목/요약" />
+      <select id="tagFilter"><option value="">태그 전체</option></select>
+    </div>
+    <div id="ideas-list" class="grid"></div>
+  </section>
+  <section id="trends" class="view hidden">
+    <h2>Trends</h2>
+    <div id="trends-list" class="grid"></div>
+  </section>
+  <section id="insights" class="view hidden">
+    <h2>Market Insights</h2>
+    <div id="insights-list" class="grid"></div>
+  </section>
+</main>
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="closeModal">닫기</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
