@@ -3,24 +3,123 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Idea Browser KR (Static)</title>
+  <title>IdeaBrowser KR</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="container">
-  <h1>Idea Browser KR</h1>
-  <nav>
-    <a href="#home" class="nav-link">Home</a>
+<header class="container site-header">
+  <h1 class="brand">Idea of the Day</h1>
+  <nav class="topnav">
+    <a href="#home" class="nav-link">Today</a>
     <a href="#ideas" class="nav-link">Ideas</a>
     <a href="#trends" class="nav-link">Trends</a>
     <a href="#insights" class="nav-link">Insights</a>
+    <button id="proToggle" class="btn ghost">Pro: <span id="proState">OFF</span></button>
   </nav>
 </header>
+
 <main class="container">
+  <!-- TODAY DETAIL -->
   <section id="home" class="view">
-    <h2>오늘의 아이디어 Top 3</h2>
-    <div id="home-cards" class="grid"></div>
+    <article id="today-wrap" class="today">
+      <header class="today-head">
+        <div class="head-row">
+          <div class="crumbs">
+            <button id="prevIdea" class="btn icon" title="Previous" disabled>←</button>
+            <span class="muted sep">|</span>
+            <time id="todayDate" class="muted"></time>
+            <span class="muted sep">|</span>
+            <button id="nextIdea" class="btn icon" title="Next" disabled>→</button>
+          </div>
+        </div>
+        <h2 id="todayTitle" class="today-title">—</h2>
+        <p id="todayOneLiner" class="today-oneliner"></p>
+        <div id="todayTags" class="badges"></div>
+      </header>
+
+      <!-- Summary row: description left + scores right -->
+      <section class="summary-grid">
+        <div class="summary-left card">
+          <h3 class="subttl">Problem</h3>
+          <p id="todayProblem" class="para"></p>
+          <h3 class="subttl">Solution</h3>
+          <p id="todaySolution" class="para"></p>
+          <div class="two-cols">
+            <div>
+              <h4 class="subttl">Target User</h4>
+              <p id="todayTarget" class="para"></p>
+            </div>
+            <div>
+              <h4 class="subttl">Go-to-Market</h4>
+              <p id="todayGTM" class="para"></p>
+            </div>
+          </div>
+        </div>
+        <aside class="summary-right card">
+          <h3 class="subttl">Scores</h3>
+          <div id="scoreChips" class="score-grid"></div>
+          <div class="overall">
+            <span class="muted">Overall</span>
+            <span id="scoreTotal" class="big-score">—</span>
+          </div>
+          <div class="source-links" id="sourceLinks"></div>
+        </aside>
+      </section>
+
+      <!-- Trend + panel -->
+      <section class="trend-grid">
+        <div class="card">
+          <header class="row-between">
+            <div class="row">
+              <span class="muted">Keyword:</span>
+              <select id="trendKeywordSel"></select>
+            </div>
+            <div class="row gap">
+              <span class="chip">Vol: <b id="volVal">—</b></span>
+              <span class="chip">Growth: <b id="growthVal">—</b></span>
+            </div>
+          </header>
+          <div id="trendChart" class="chart"></div>
+          <p class="muted tiny">* 시계열(series)이 없으면 단일 값으로 표시됩니다.</p>
+        </div>
+        <aside class="card">
+          <h3 class="subttl">Community Signals</h3>
+          <ul id="communityList" class="list"></ul>
+        </aside>
+      </section>
+
+      <!-- Tabs -->
+      <section class="tabs">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="why">Why Now</button>
+          <button class="tab-btn" data-tab="proof">Proof & Signals</button>
+          <button class="tab-btn" data-tab="gap">Market Gap</button>
+          <button class="tab-btn" data-tab="exec">Execution Plan</button>
+        </div>
+        <div class="tab-panels">
+          <div id="tab-why" class="tab-panel active">
+            <h3 class="subttl">왜 지금인가?</h3>
+            <div id="whyBody" class="para"></div>
+            <div id="whyCards" class="grid-cards"></div>
+          </div>
+          <div id="tab-proof" class="tab-panel">
+            <h3 class="subttl">증거 & 신호</h3>
+            <div id="proofCards" class="grid-cards"></div>
+          </div>
+          <div id="tab-gap" class="tab-panel">
+            <h3 class="subttl">마켓 갭 분석</h3>
+            <div id="gapCards" class="grid-cards"></div>
+          </div>
+          <div id="tab-exec" class="tab-panel">
+            <h3 class="subttl">실행 계획</h3>
+            <div id="execCards" class="grid-cards"></div>
+          </div>
+        </div>
+      </section>
+    </article>
   </section>
+
+  <!-- Keep the old list views for browsing -->
   <section id="ideas" class="view hidden">
     <h2>Ideas</h2>
     <div class="controls">
@@ -29,21 +128,22 @@
     </div>
     <div id="ideas-list" class="grid"></div>
   </section>
+
   <section id="trends" class="view hidden">
     <h2>Trends</h2>
     <div id="trends-list" class="grid"></div>
   </section>
+
   <section id="insights" class="view hidden">
-    <h2>Market Insights</h2>
+    <h2>Insights</h2>
     <div id="insights-list" class="grid"></div>
   </section>
 </main>
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <button id="closeModal">닫기</button>
-    <div id="modalBody"></div>
-  </div>
-</div>
+
+<footer class="container footer">
+  <span class="muted">© IdeaBrowser KR</span>
+</footer>
+
 <script src="script.js"></script>
 </body>
 </html>
