@@ -1,0 +1,43 @@
+[
+  {
+    "idea_id": "idea_2025_08_20_001",
+    "title_ko": "리필 스테이션 위치 데이터 API + 제휴 쿠폰",
+    "one_liner": "리필 스테이션 지도와 쿠폰으로 방문 유도",
+    "problem": "친환경 소비 의향은 높지만 실제 방문 동기가 약함",
+    "solution": "실시간 재고/혼잡도 지도 + 리워드 쿠폰",
+    "target_user": "20-34 친환경 관심 소비자",
+    "why_now": "리필/제로웨이스트 관심 증가 [샘플]",
+    "biz_model": "제휴 수수료 + 광고 + 구독",
+    "gtm_tactics": "인플루언서 20인 파일럿 + 제휴 10매장",
+    "validation_steps": "대기리스트 300; 제휴 5; 첫달 1천명",
+    "tags": [
+      "친환경",
+      "지도",
+      "쿠폰",
+      "커머스"
+    ],
+    "score_total": 68.5,
+    "score_breakdown": {
+      "Trend": 72,
+      "Market": 65,
+      "CompetitionInvert": 60,
+      "Feasibility": 70,
+      "Monetization": 66,
+      "RegulatoryInvert": 58
+    },
+    "trend_link": [
+      "tr_001"
+    ],
+    "sources_linked": [
+      "raw_0001",
+      "raw_0002"
+    ],
+    "regulation_risk": "중간",
+    "gov_support_fit": [
+      "예창패",
+      "녹색인증"
+    ],
+    "created_at": "2025-08-20T14:45:00",
+    "is_today": true
+  }
+]

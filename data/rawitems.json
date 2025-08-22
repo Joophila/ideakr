@@ -1,0 +1,30 @@
+[
+  {
+    "raw_id": "raw_0001",
+    "source_platform": "reddit",
+    "query_or_topic": "r/startups top 24h",
+    "title": "K-beauty refill kiosks trending in Seoul",
+    "content_snippet": "Discussion on refill stations.",
+    "url": "https://example.com/post1",
+    "metrics_upvotes": 128,
+    "metrics_comments": 34,
+    "search_volume": "",
+    "language": "en",
+    "published_at": "2025-08-20T14:45:00",
+    "fetched_at": "2025-08-20T14:45:00"
+  },
+  {
+    "raw_id": "raw_0002",
+    "source_platform": "naver",
+    "query_or_topic": "리필 스테이션",
+    "title": "네이버 검색량 증가: 리필 스테이션",
+    "content_snippet": "30일 대비 상승.",
+    "url": "https://example.com/naver1",
+    "metrics_upvotes": "",
+    "metrics_comments": "",
+    "search_volume": 14800,
+    "language": "ko",
+    "published_at": "2025-08-20T14:45:00",
+    "fetched_at": "2025-08-20T14:45:00"
+  }
+]

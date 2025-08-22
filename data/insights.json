@@ -1,0 +1,15 @@
+[
+  {
+    "insight_id": "mi_001",
+    "title": "Resale & Arbitrage pain points",
+    "pain_points_level": "High",
+    "solution_gap_level": "High",
+    "revenue_potential": "Excellent",
+    "communities_count": 18,
+    "evidence_rawitems": [
+      "raw_0001"
+    ],
+    "notes": "리필 제품 리셀의 물류/재고 이슈.",
+    "related_idea": "idea_2025_08_20_001"
+  }
+]
