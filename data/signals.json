@@ -1,18 +1,16 @@
 {
-  "summary": {
-    "reddit": {
-      "posts": 0,
-      "upvotes": 0,
-      "comments": 0
-    },
-    "youtube": {
-      "videos": 43,
-      "views": 118049813
-    },
-    "naver": {
-      "vol_last": 0,
-      "growth": -45.1
-    }
+  "reddit": {
+    "posts": 0,
+    "upvotes": 0,
+    "comments": 0
   },
-  "updated_at": "2025-08-25T00:59:31.138462+09:00"
+  "naver": {
+    "groups": 5,
+    "vol": 126
+  },
+  "youtube": {
+    "videos": 44,
+    "views": 122073828
+  },
+  "updated_at": "2025-08-25T01:16:58.475739+09:00"
 }
