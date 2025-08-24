@@ -428,7 +428,7 @@ def write_full_card_with_gpt(items: list[dict], trends: dict, metrics: list[dict
         user_msg = "DATA:\n" + json.dumps(payload, ensure_ascii=False)
 
         resp = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": user_msg}],
             temperature=0.4,
             response_format={"type": "json_object"},
