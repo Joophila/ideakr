@@ -4,13 +4,10 @@
     "upvotes": 0,
     "comments": 0
   },
-  "naver": {
-    "groups": 5,
-    "vol": 126
-  },
   "youtube": {
-    "videos": 44,
-    "views": 122073828
+    "videos": 40
   },
-  "updated_at": "2025-08-25T01:16:58.475739+09:00"
+  "naver": {
+    "groups": 0
+  }
 }
