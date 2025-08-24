@@ -1,69 +1,74 @@
 [
   {
     "idea_id": "idea_2025_08_25_001",
-    "title_ko": "스타트업 아이디어",
-    "one_liner": "확실하지 않음",
-    "problem": "알 수 없습니다",
-    "solution": "알 수 없습니다",
-    "target_user": "알 수 없습니다",
-    "why_now": "",
-    "biz_model": "알 수 없습니다",
-    "gtm_tactics": "알 수 없습니다",
-    "validation_steps": "확실하지 않음",
+    "title_ko": "스타트업 기반 솔루션",
+    "one_liner": "스타트업 관련 수요 증가를 겨냥한 경량 MVP",
+    "problem": "‘스타트업’와 관련해 실사용자가 느끼는 구체적 문제/비효율이 많지만 검증된 제품이 부족합니다.",
+    "solution": "스타트업 핵심 과업 1~2개만 해결하는 간단한 SaaS/툴 형태로 빠른 검증을 목표로 합니다.",
+    "target_user": "초기 채택자(해당 업무를 자주 수행하는 파워유저/팀)",
+    "why_now": "최근 2주 언급량 0건, 전주 대비 성장률 0.0%",
+    "biz_model": "월 구독 + 연간 2개월 혜택",
+    "gtm_tactics": "커뮤니티(YouTube/Reddit)와 뉴스레터/SEO로 저비용 테스트 → 파트너십 확장",
+    "validation_steps": "빠른 인터뷰/대기열/유료베타로 정량검증",
     "tags": [
       "스타트업",
-      "지디넷코리아",
-      "기술",
-      "플랫폼"
+      "AI 자동화",
+      "물류 최적화",
+      "에너지 관리"
     ],
-    "score_breakdown": {},
-    "score_total": 0,
+    "score_breakdown": {
+      "trend": 0,
+      "market": 0,
+      "competition_invert": 100.0,
+      "feasibility": 50,
+      "monetization": 50,
+      "regulatory_invert": 50
+    },
+    "score_total": 27,
     "trend_link": [
       "tr_0001",
       "tr_0002",
       "tr_0003"
     ],
     "is_today": true,
-    "why_cards": [],
-    "gap_notes": [],
-    "exec_steps": [],
-    "evidence": [
+    "why_cards": [
+      "최근 2주 언급량 0건, 전주 대비 성장률 0.0%",
+      "유관 커뮤니티(YouTube/Reddit)에서 관련 주제 콘텐츠가 꾸준히 생성"
+    ],
+    "gap_notes": [
+      "근거가 부족합니다"
+    ],
+    "exec_steps": [
+      "2주: 문제/해결 적합성 인터뷰·체크리스트",
+      "4주: 핵심 기능 MVP 개발·유료 베타",
+      "지표: 가입전환/재방문/유료전환/해지 사유 수집"
+    ],
+    "evidence": [],
+    "offer_ladder": [
       {
-        "title": "Bad Food With Excellent Service On Indigo! ✈️🍑",
-        "url": "https://www.youtube.com/watch?v=1bE818OzN8M"
+        "name": "Lead Magnet",
+        "price": "Free",
+        "unit": "체크리스트/미니툴"
       },
       {
-        "title": "핵심기술 유출 참교육한 삼성",
-        "url": "https://www.youtube.com/watch?v=rGK3eU9qIQw"
+        "name": "Core MVP",
+        "price": "₩9,900~₩29,000/월",
+        "unit": "SaaS"
       },
       {
-        "title": "한국 기술 무시한 중국의 최후 15일 만에 박살",
-        "url": "https://www.youtube.com/watch?v=Vz1wZDH_5f0"
-      },
-      {
-        "title": "출산율에 기여한 사람을 위한, 출장요리 서비스",
-        "url": "https://www.youtube.com/watch?v=AzgkbBGYgMg"
-      },
-      {
-        "title": "Years of service, a lifetime of love.❤️🐕 dog k9 policedogs retirement loyalty foryou",
-        "url": "https://www.youtube.com/watch?v=0tMeD8zbV_o"
-      },
-      {
-        "title": "공안 검사 출신의 특급 기술",
-        "url": "https://www.youtube.com/watch?v=9fKpvXr_t5U"
-      },
-      {
-        "title": "The Japanese Service That Lets You Erase Your Life",
-        "url": "https://www.youtube.com/watch?v=HxWCC6Fsvm0"
-      },
-      {
-        "title": "이러니 감동을 하지 직접 마중에 립서비스까지",
-        "url": "https://www.youtube.com/watch?v=lF2KVwIcdAA"
+        "name": "Pro",
+        "price": "₩99,000+/월",
+        "unit": "확장"
       }
     ],
-    "offer_ladder": [],
-    "pricing": [],
-    "channels": [],
+    "pricing": [
+      "월 구독 + 연간 2개월 혜택"
+    ],
+    "channels": [
+      "YouTube",
+      "SEO",
+      "파트너 제휴"
+    ],
     "competitors": [],
     "personas": []
   }

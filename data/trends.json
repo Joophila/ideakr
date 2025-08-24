@@ -7,92 +7,341 @@
     "growth_percent": 0.0,
     "region": "KR",
     "timespan": "14d",
-    "series": [],
+    "series": [
+      {
+        "date": "2025-08-12",
+        "value": 0
+      },
+      {
+        "date": "2025-08-13",
+        "value": 0
+      },
+      {
+        "date": "2025-08-14",
+        "value": 0
+      },
+      {
+        "date": "2025-08-15",
+        "value": 0
+      },
+      {
+        "date": "2025-08-16",
+        "value": 0
+      },
+      {
+        "date": "2025-08-17",
+        "value": 0
+      },
+      {
+        "date": "2025-08-18",
+        "value": 0
+      },
+      {
+        "date": "2025-08-19",
+        "value": 0
+      },
+      {
+        "date": "2025-08-20",
+        "value": 0
+      },
+      {
+        "date": "2025-08-21",
+        "value": 0
+      },
+      {
+        "date": "2025-08-22",
+        "value": 0
+      },
+      {
+        "date": "2025-08-23",
+        "value": 0
+      },
+      {
+        "date": "2025-08-24",
+        "value": 0
+      },
+      {
+        "date": "2025-08-25",
+        "value": 0
+      }
+    ],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
+    "updated_at": "2025-08-25T05:57:07.325266+09:00"
   },
   {
     "trend_id": "tr_0002",
-    "keyword": "지디넷코리아",
+    "keyword": "AI 자동화",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
     "timespan": "14d",
-    "series": [],
+    "series": [
+      {
+        "date": "2025-08-12",
+        "value": 0
+      },
+      {
+        "date": "2025-08-13",
+        "value": 0
+      },
+      {
+        "date": "2025-08-14",
+        "value": 0
+      },
+      {
+        "date": "2025-08-15",
+        "value": 0
+      },
+      {
+        "date": "2025-08-16",
+        "value": 0
+      },
+      {
+        "date": "2025-08-17",
+        "value": 0
+      },
+      {
+        "date": "2025-08-18",
+        "value": 0
+      },
+      {
+        "date": "2025-08-19",
+        "value": 0
+      },
+      {
+        "date": "2025-08-20",
+        "value": 0
+      },
+      {
+        "date": "2025-08-21",
+        "value": 0
+      },
+      {
+        "date": "2025-08-22",
+        "value": 0
+      },
+      {
+        "date": "2025-08-23",
+        "value": 0
+      },
+      {
+        "date": "2025-08-24",
+        "value": 0
+      },
+      {
+        "date": "2025-08-25",
+        "value": 0
+      }
+    ],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
+    "updated_at": "2025-08-25T05:57:07.325283+09:00"
   },
   {
     "trend_id": "tr_0003",
-    "keyword": "기술",
+    "keyword": "물류 최적화",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
     "timespan": "14d",
-    "series": [],
+    "series": [
+      {
+        "date": "2025-08-12",
+        "value": 0
+      },
+      {
+        "date": "2025-08-13",
+        "value": 0
+      },
+      {
+        "date": "2025-08-14",
+        "value": 0
+      },
+      {
+        "date": "2025-08-15",
+        "value": 0
+      },
+      {
+        "date": "2025-08-16",
+        "value": 0
+      },
+      {
+        "date": "2025-08-17",
+        "value": 0
+      },
+      {
+        "date": "2025-08-18",
+        "value": 0
+      },
+      {
+        "date": "2025-08-19",
+        "value": 0
+      },
+      {
+        "date": "2025-08-20",
+        "value": 0
+      },
+      {
+        "date": "2025-08-21",
+        "value": 0
+      },
+      {
+        "date": "2025-08-22",
+        "value": 0
+      },
+      {
+        "date": "2025-08-23",
+        "value": 0
+      },
+      {
+        "date": "2025-08-24",
+        "value": 0
+      },
+      {
+        "date": "2025-08-25",
+        "value": 0
+      }
+    ],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
+    "updated_at": "2025-08-25T05:57:07.325294+09:00"
   },
   {
     "trend_id": "tr_0004",
-    "keyword": "플랫폼",
+    "keyword": "에너지 관리",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
     "timespan": "14d",
-    "series": [],
+    "series": [
+      {
+        "date": "2025-08-12",
+        "value": 0
+      },
+      {
+        "date": "2025-08-13",
+        "value": 0
+      },
+      {
+        "date": "2025-08-14",
+        "value": 0
+      },
+      {
+        "date": "2025-08-15",
+        "value": 0
+      },
+      {
+        "date": "2025-08-16",
+        "value": 0
+      },
+      {
+        "date": "2025-08-17",
+        "value": 0
+      },
+      {
+        "date": "2025-08-18",
+        "value": 0
+      },
+      {
+        "date": "2025-08-19",
+        "value": 0
+      },
+      {
+        "date": "2025-08-20",
+        "value": 0
+      },
+      {
+        "date": "2025-08-21",
+        "value": 0
+      },
+      {
+        "date": "2025-08-22",
+        "value": 0
+      },
+      {
+        "date": "2025-08-23",
+        "value": 0
+      },
+      {
+        "date": "2025-08-24",
+        "value": 0
+      },
+      {
+        "date": "2025-08-25",
+        "value": 0
+      }
+    ],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
+    "updated_at": "2025-08-25T05:57:07.325305+09:00"
   },
   {
     "trend_id": "tr_0005",
-    "keyword": "서비스",
+    "keyword": "리테일 분석",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
     "timespan": "14d",
-    "series": [],
+    "series": [
+      {
+        "date": "2025-08-12",
+        "value": 0
+      },
+      {
+        "date": "2025-08-13",
+        "value": 0
+      },
+      {
+        "date": "2025-08-14",
+        "value": 0
+      },
+      {
+        "date": "2025-08-15",
+        "value": 0
+      },
+      {
+        "date": "2025-08-16",
+        "value": 0
+      },
+      {
+        "date": "2025-08-17",
+        "value": 0
+      },
+      {
+        "date": "2025-08-18",
+        "value": 0
+      },
+      {
+        "date": "2025-08-19",
+        "value": 0
+      },
+      {
+        "date": "2025-08-20",
+        "value": 0
+      },
+      {
+        "date": "2025-08-21",
+        "value": 0
+      },
+      {
+        "date": "2025-08-22",
+        "value": 0
+      },
+      {
+        "date": "2025-08-23",
+        "value": 0
+      },
+      {
+        "date": "2025-08-24",
+        "value": 0
+      },
+      {
+        "date": "2025-08-25",
+        "value": 0
+      }
+    ],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
-  },
-  {
-    "trend_id": "tr_0006",
-    "keyword": "글로벌",
-    "trend_score": 0,
-    "volume": 0,
-    "growth_percent": 0.0,
-    "region": "KR",
-    "timespan": "14d",
-    "series": [],
-    "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
-  },
-  {
-    "trend_id": "tr_0007",
-    "keyword": "pv5",
-    "trend_score": 0,
-    "volume": 0,
-    "growth_percent": 0.0,
-    "region": "KR",
-    "timespan": "14d",
-    "series": [],
-    "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
-  },
-  {
-    "trend_id": "tr_0008",
-    "keyword": "넷플릭스 tvn에서",
-    "trend_score": 0,
-    "volume": 0,
-    "growth_percent": 0.0,
-    "region": "KR",
-    "timespan": "14d",
-    "series": [],
-    "evidence_rawitems": [],
-    "updated_at": "2025-08-25T04:12:47.788798+09:00"
+    "updated_at": "2025-08-25T05:57:07.325315+09:00"
   }
 ]
