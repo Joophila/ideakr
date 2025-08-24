@@ -22,24 +22,23 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run updater
         env:
-          OPENAI_API_KEY:       ${{ secrets.OPENAI_API_KEY }}
-          NAVER_CLIENT_ID:      ${{ secrets.NAVER_CLIENT_ID }}
-          NAVER_CLIENT_SECRET:  ${{ secrets.NAVER_CLIENT_SECRET }}
-          YOUTUBE_API_KEY:      ${{ secrets.YOUTUBE_API_KEY }}
-          GOOGLE_API_KEY:       ${{ secrets.GOOGLE_API_KEY }}
-          GOOGLE_CSE_ID:        ${{ secrets.GOOGLE_CSE_ID }}
-          REDDIT_CLIENT_ID:     ${{ secrets.REDDIT_CLIENT_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}          # YouTube
+          GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}            # 쓰면 사용, 없으면 무시
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-          REDDIT_USER_AGENT:    ${{ secrets.REDDIT_USER_AGENT }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
         run: python scripts/update.py
+
 
       - name: Peek json heads
         run: |
-          echo "=== ideas.json ==="; head -n 60 data/ideas.json || true
-          echo "=== trends.json ==="; head -n 60 data/trends.json || true
-          echo "=== rawitems.json ==="; head -n 30 data/rawitems.json || true
+          echo "=== ideas.json ==="; head -n 80 data/ideas.json || true
+          echo "=== trends.json ==="; head -n 80 data/trends.json || true
+          echo "=== rawitems.json ==="; head -n 20 data/rawitems.json || true
           echo "=== signals.json ==="; cat data/signals.json || true
-
       
       - name: Commit & push if changed
         run: |
