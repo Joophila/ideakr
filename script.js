@@ -153,7 +153,7 @@ function renderTrendChart(trendId){
 
   const holder = document.getElementById('trendChart');
   if (Array.isArray(t.series) && t.series.length>=2){
-    const xs = t.series.map(p=>p.volume||0);
+    const xs = t.series.map(p => (p.volume ?? p.value ?? 0));
     holder.innerHTML = sparkline(xs);
   } else {
     holder.innerHTML = emptyChart('시계열 없음 — volume만 보유');
