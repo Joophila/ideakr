@@ -1,347 +1,77 @@
 [
   {
     "trend_id": "tr_0001",
+    "keyword": "com",
+    "trend_score": 0,
+    "volume": 0,
+    "growth_percent": -0.451,
+    "region": "KR",
+    "timespan": "14d",
+    "evidence_rawitems": [
+      "raw_0132",
+      "raw_0147",
+      "raw_0150"
+    ],
+    "updated_at": "2025-08-25T00:46:12.754620+09:00"
+  },
+  {
+    "trend_id": "tr_0002",
+    "keyword": "https",
+    "trend_score": 0,
+    "volume": 0,
+    "growth_percent": -0.397,
+    "region": "KR",
+    "timespan": "14d",
+    "evidence_rawitems": [
+      "raw_0132",
+      "raw_0147",
+      "raw_0150"
+    ],
+    "updated_at": "2025-08-25T00:46:12.754620+09:00"
+  },
+  {
+    "trend_id": "tr_0003",
+    "keyword": "매일경제",
+    "trend_score": 0,
+    "volume": 1,
+    "growth_percent": -0.447,
+    "region": "KR",
+    "timespan": "14d",
+    "evidence_rawitems": [
+      "raw_0166",
+      "raw_0167",
+      "raw_0169"
+    ],
+    "updated_at": "2025-08-25T00:46:12.754620+09:00"
+  },
+  {
+    "trend_id": "tr_0004",
+    "keyword": "네이트",
+    "trend_score": 68,
+    "volume": 77,
+    "growth_percent": -0.214,
+    "region": "KR",
+    "timespan": "14d",
+    "evidence_rawitems": [
+      "raw_0049",
+      "raw_0061",
+      "raw_0062"
+    ],
+    "updated_at": "2025-08-25T00:46:12.754620+09:00"
+  },
+  {
+    "trend_id": "tr_0005",
     "keyword": "비트코인",
-    "trend_score": 2,
-    "volume": 49,
+    "trend_score": 27,
+    "volume": 48,
     "growth_percent": -0.365,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [
       "raw_0009",
-      "raw_0023",
+      "raw_0028",
       "raw_0078"
     ],
-    "updated_at": "2025-08-25T00:18:44.974466+09:00",
-    "series": [
-      {
-        "date": "2025-08-11",
-        "value": 77.33369
-      },
-      {
-        "date": "2025-08-12",
-        "value": 50.27636
-      },
-      {
-        "date": "2025-08-13",
-        "value": 54.20518
-      },
-      {
-        "date": "2025-08-14",
-        "value": 100
-      },
-      {
-        "date": "2025-08-15",
-        "value": 50.32848
-      },
-      {
-        "date": "2025-08-16",
-        "value": 36.02249
-      },
-      {
-        "date": "2025-08-17",
-        "value": 30.33877
-      },
-      {
-        "date": "2025-08-18",
-        "value": 59.80661
-      },
-      {
-        "date": "2025-08-19",
-        "value": 46.041
-      },
-      {
-        "date": "2025-08-20",
-        "value": 60.41078
-      },
-      {
-        "date": "2025-08-21",
-        "value": 41.52105
-      },
-      {
-        "date": "2025-08-22",
-        "value": 52.45028
-      },
-      {
-        "date": "2025-08-23",
-        "value": 49.12974
-      }
-    ]
-  },
-  {
-    "trend_id": "tr_0002",
-    "keyword": "블록미디어",
-    "trend_score": 2,
-    "volume": 0,
-    "growth_percent": -0.245,
-    "region": "KR",
-    "timespan": "14d",
-    "evidence_rawitems": [
-      "raw_0089",
-      "raw_0090",
-      "raw_0093"
-    ],
-    "updated_at": "2025-08-25T00:18:44.974466+09:00",
-    "series": [
-      {
-        "date": "2025-08-11",
-        "value": 0.1879
-      },
-      {
-        "date": "2025-08-12",
-        "value": 0.22219
-      },
-      {
-        "date": "2025-08-13",
-        "value": 0.18996
-      },
-      {
-        "date": "2025-08-14",
-        "value": 0.2503
-      },
-      {
-        "date": "2025-08-15",
-        "value": 0.14881
-      },
-      {
-        "date": "2025-08-16",
-        "value": 0.12343
-      },
-      {
-        "date": "2025-08-17",
-        "value": 0.11383
-      },
-      {
-        "date": "2025-08-18",
-        "value": 0.2023
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0.15704
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0.18447
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0.17898
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0.23796
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0.14195
-      }
-    ]
-  },
-  {
-    "trend_id": "tr_0003",
-    "keyword": "이더리움",
-    "trend_score": 2,
-    "volume": 73,
-    "growth_percent": 0.366,
-    "region": "KR",
-    "timespan": "14d",
-    "evidence_rawitems": [
-      "raw_0010",
-      "raw_0096",
-      "raw_0101"
-    ],
-    "updated_at": "2025-08-25T00:18:44.974466+09:00",
-    "series": [
-      {
-        "date": "2025-08-11",
-        "value": 53.93018
-      },
-      {
-        "date": "2025-08-12",
-        "value": 51.55191
-      },
-      {
-        "date": "2025-08-13",
-        "value": 95.40186
-      },
-      {
-        "date": "2025-08-14",
-        "value": 72.6999
-      },
-      {
-        "date": "2025-08-15",
-        "value": 39.43491
-      },
-      {
-        "date": "2025-08-16",
-        "value": 36.90783
-      },
-      {
-        "date": "2025-08-17",
-        "value": 32.16294
-      },
-      {
-        "date": "2025-08-18",
-        "value": 51.27143
-      },
-      {
-        "date": "2025-08-19",
-        "value": 37.77328
-      },
-      {
-        "date": "2025-08-20",
-        "value": 39.64476
-      },
-      {
-        "date": "2025-08-21",
-        "value": 31.0122
-      },
-      {
-        "date": "2025-08-22",
-        "value": 35.9594
-      },
-      {
-        "date": "2025-08-23",
-        "value": 73.6737
-      }
-    ]
-  },
-  {
-    "trend_id": "tr_0004",
-    "keyword": "트럼프",
-    "trend_score": 2,
-    "volume": 9,
-    "growth_percent": 0.564,
-    "region": "KR",
-    "timespan": "14d",
-    "evidence_rawitems": [
-      "raw_0007",
-      "raw_0024",
-      "raw_0040"
-    ],
-    "updated_at": "2025-08-25T00:18:44.974466+09:00",
-    "series": [
-      {
-        "date": "2025-08-11",
-        "value": 5.98271
-      },
-      {
-        "date": "2025-08-12",
-        "value": 10.39295
-      },
-      {
-        "date": "2025-08-13",
-        "value": 6.51556
-      },
-      {
-        "date": "2025-08-14",
-        "value": 7.09299
-      },
-      {
-        "date": "2025-08-15",
-        "value": 7.94952
-      },
-      {
-        "date": "2025-08-16",
-        "value": 15.20367
-      },
-      {
-        "date": "2025-08-17",
-        "value": 5.79001
-      },
-      {
-        "date": "2025-08-18",
-        "value": 9.87587
-      },
-      {
-        "date": "2025-08-19",
-        "value": 11.16582
-      },
-      {
-        "date": "2025-08-20",
-        "value": 8.40556
-      },
-      {
-        "date": "2025-08-21",
-        "value": 7.14716
-      },
-      {
-        "date": "2025-08-22",
-        "value": 9.22781
-      },
-      {
-        "date": "2025-08-23",
-        "value": 9.35468
-      }
-    ]
-  },
-  {
-    "trend_id": "tr_0005",
-    "keyword": "지디넷코리아",
-    "trend_score": 2,
-    "volume": 0,
-    "growth_percent": -0.833,
-    "region": "KR",
-    "timespan": "14d",
-    "evidence_rawitems": [
-      "raw_0032",
-      "raw_0038",
-      "raw_0040"
-    ],
-    "updated_at": "2025-08-25T00:18:44.974466+09:00",
-    "series": [
-      {
-        "date": "2025-08-11",
-        "value": 0.07817
-      },
-      {
-        "date": "2025-08-12",
-        "value": 0.0672
-      },
-      {
-        "date": "2025-08-13",
-        "value": 0.04114
-      },
-      {
-        "date": "2025-08-14",
-        "value": 0.05211
-      },
-      {
-        "date": "2025-08-15",
-        "value": 0.01851
-      },
-      {
-        "date": "2025-08-16",
-        "value": 0.0144
-      },
-      {
-        "date": "2025-08-17",
-        "value": 0.02468
-      },
-      {
-        "date": "2025-08-18",
-        "value": 0.06103
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0.06514
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0.06514
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0.06446
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0.048
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0.01302
-      }
-    ]
+    "updated_at": "2025-08-25T00:46:12.754620+09:00"
   }
 ]
