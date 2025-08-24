@@ -12,19 +12,19 @@
     "validation_steps": "확실하지 않음",
     "tags": [
       "매일경제",
-      "한국경제",
       "네이트",
+      "한국경제",
       "조선일보"
     ],
     "score_breakdown": {
-      "trend": 43,
+      "trend": 7,
       "market": 100,
       "competition_invert": 10,
       "feasibility": 50,
       "monetization": 50,
       "regulatory_invert": 50
     },
-    "score_total": 54,
+    "score_total": 41,
     "trend_link": [
       "tr_0001",
       "tr_0002",
@@ -33,7 +33,7 @@
     "sources_linked": [],
     "regulation_risk": "중간",
     "gov_support_fit": [],
-    "created_at": "2025-08-24T11:04:52.361518+09:00",
+    "created_at": "2025-08-24T11:36:34.280634+09:00",
     "is_today": true
   }
 ]
