@@ -2,56 +2,56 @@
   {
     "trend_id": "tr_0001",
     "keyword": "매일경제",
-    "trend_score": 35,
+    "trend_score": 43,
     "volume": 1,
     "growth_percent": 0.11199999999999999,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [],
-    "updated_at": "2025-08-24T09:57:25.373511+09:00"
+    "updated_at": "2025-08-24T11:04:52.361518+09:00"
   },
   {
     "trend_id": "tr_0002",
-    "keyword": "비트코인",
-    "trend_score": 35,
-    "volume": 49,
-    "growth_percent": 0.39299999999999996,
-    "region": "KR",
-    "timespan": "14d",
-    "evidence_rawitems": [],
-    "updated_at": "2025-08-24T09:57:25.373511+09:00"
-  },
-  {
-    "trend_id": "tr_0003",
     "keyword": "한국경제",
-    "trend_score": 35,
+    "trend_score": 43,
     "volume": 0,
     "growth_percent": 0.10400000000000001,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [],
-    "updated_at": "2025-08-24T09:57:25.373511+09:00"
+    "updated_at": "2025-08-24T11:04:52.361518+09:00"
+  },
+  {
+    "trend_id": "tr_0003",
+    "keyword": "네이트",
+    "trend_score": 43,
+    "volume": 77,
+    "growth_percent": 0.003,
+    "region": "KR",
+    "timespan": "14d",
+    "evidence_rawitems": [],
+    "updated_at": "2025-08-24T11:04:52.361518+09:00"
   },
   {
     "trend_id": "tr_0004",
     "keyword": "조선일보",
-    "trend_score": 35,
+    "trend_score": 43,
     "volume": 16,
     "growth_percent": 0.156,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [],
-    "updated_at": "2025-08-24T09:57:25.373511+09:00"
+    "updated_at": "2025-08-24T11:04:52.361518+09:00"
   },
   {
     "trend_id": "tr_0005",
-    "keyword": "이더리움",
-    "trend_score": 35,
-    "volume": 73,
-    "growth_percent": 0.299,
+    "keyword": "트럼프",
+    "trend_score": 43,
+    "volume": 9,
+    "growth_percent": 1.3090000000000002,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [],
-    "updated_at": "2025-08-24T09:57:25.373511+09:00"
+    "updated_at": "2025-08-24T11:04:52.361518+09:00"
   }
 ]
