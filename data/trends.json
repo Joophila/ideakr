@@ -1,16 +1,1 @@
-[
-  {
-    "trend_id": "tr_001",
-    "keyword": "리필 스테이션",
-    "trend_score": 72,
-    "volume": 14800,
-    "growth_percent": 0.17,
-    "region": "KR",
-    "timespan": "30d",
-    "evidence_rawitems": [
-      "raw_0001",
-      "raw_0002"
-    ],
-    "updated_at": "2025-08-20T14:45:00"
-  }
-]
+[]

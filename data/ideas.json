@@ -1,43 +1,35 @@
 [
   {
-    "idea_id": "idea_2025_08_20_001",
-    "title_ko": "리필 스테이션 위치 데이터 API + 제휴 쿠폰",
-    "one_liner": "리필 스테이션 지도와 쿠폰으로 방문 유도",
-    "problem": "친환경 소비 의향은 높지만 실제 방문 동기가 약함",
-    "solution": "실시간 재고/혼잡도 지도 + 리워드 쿠폰",
-    "target_user": "20-34 친환경 관심 소비자",
-    "why_now": "리필/제로웨이스트 관심 증가 [샘플]",
-    "biz_model": "제휴 수수료 + 광고 + 구독",
-    "gtm_tactics": "인플루언서 20인 파일럿 + 제휴 10매장",
-    "validation_steps": "대기리스트 300; 제휴 5; 첫달 1천명",
+    "idea_id": "idea_2025_08_24_001",
+    "title_ko": "아이디어 생성 실패",
+    "one_liner": "확실하지 않음",
+    "problem": "알 수 없습니다",
+    "solution": "알 수 없습니다",
+    "target_user": "알 수 없습니다",
+    "why_now": "알 수 없습니다",
+    "biz_model": "알 수 없습니다",
+    "gtm_tactics": "알 수 없습니다",
+    "validation_steps": "확실하지 않음",
     "tags": [
-      "친환경",
-      "지도",
-      "쿠폰",
-      "커머스"
+      "매일경제",
+      "비트코인",
+      "한국경제",
+      "xrp"
     ],
-    "score_total": 68.5,
     "score_breakdown": {
-      "Trend": 72,
-      "Market": 65,
-      "CompetitionInvert": 60,
-      "Feasibility": 70,
-      "Monetization": 66,
-      "RegulatoryInvert": 58
+      "trend": 0,
+      "market": 100,
+      "competition_invert": 10,
+      "feasibility": 50,
+      "monetization": 50,
+      "regulatory_invert": 50
     },
-    "trend_link": [
-      "tr_001"
-    ],
-    "sources_linked": [
-      "raw_0001",
-      "raw_0002"
-    ],
+    "score_total": 39,
+    "trend_link": [],
+    "sources_linked": [],
     "regulation_risk": "중간",
-    "gov_support_fit": [
-      "예창패",
-      "녹색인증"
-    ],
-    "created_at": "2025-08-20T14:45:00",
+    "gov_support_fit": [],
+    "created_at": "2025-08-24T09:44:50.869567+09:00",
     "is_today": true
   }
 ]
