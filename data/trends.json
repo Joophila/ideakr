@@ -2,22 +2,18 @@
   {
     "trend_id": "tr_0001",
     "keyword": "비트코인",
-    "trend_score": 47,
+    "trend_score": 2,
     "volume": 49,
-    "growth_percent": 0.39299999999999996,
+    "growth_percent": -0.365,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [
-      "raw_0010",
+      "raw_0009",
       "raw_0023",
       "raw_0078"
     ],
-    "updated_at": "2025-08-24T23:51:17.402306+09:00",
+    "updated_at": "2025-08-25T00:11:47.419975+09:00",
     "series": [
-      {
-        "date": "2025-08-10",
-        "value": 35.27293
-      },
       {
         "date": "2025-08-11",
         "value": 77.33369
@@ -75,9 +71,9 @@
   {
     "trend_id": "tr_0002",
     "keyword": "블록미디어",
-    "trend_score": 47,
+    "trend_score": 2,
     "volume": 0,
-    "growth_percent": -0.12300000000000001,
+    "growth_percent": -0.245,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [
@@ -85,12 +81,8 @@
       "raw_0090",
       "raw_0093"
     ],
-    "updated_at": "2025-08-24T23:51:17.402306+09:00",
+    "updated_at": "2025-08-25T00:11:47.419975+09:00",
     "series": [
-      {
-        "date": "2025-08-10",
-        "value": 0.16184
-      },
       {
         "date": "2025-08-11",
         "value": 0.1879
@@ -148,22 +140,18 @@
   {
     "trend_id": "tr_0003",
     "keyword": "이더리움",
-    "trend_score": 47,
+    "trend_score": 2,
     "volume": 73,
-    "growth_percent": 0.299,
+    "growth_percent": 0.366,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [
-      "raw_0011",
+      "raw_0010",
       "raw_0096",
-      "raw_0102"
+      "raw_0101"
     ],
-    "updated_at": "2025-08-24T23:51:17.402306+09:00",
+    "updated_at": "2025-08-25T00:11:47.419975+09:00",
     "series": [
-      {
-        "date": "2025-08-10",
-        "value": 56.73021
-      },
       {
         "date": "2025-08-11",
         "value": 53.93018
@@ -221,22 +209,18 @@
   {
     "trend_id": "tr_0004",
     "keyword": "트럼프",
-    "trend_score": 47,
+    "trend_score": 2,
     "volume": 9,
-    "growth_percent": 1.3090000000000002,
+    "growth_percent": 0.564,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [
-      "raw_0006",
+      "raw_0007",
       "raw_0024",
-      "raw_0041"
+      "raw_0040"
     ],
-    "updated_at": "2025-08-24T23:51:17.402306+09:00",
+    "updated_at": "2025-08-25T00:11:47.419975+09:00",
     "series": [
-      {
-        "date": "2025-08-10",
-        "value": 4.05157
-      },
       {
         "date": "2025-08-11",
         "value": 5.98271
@@ -293,74 +277,70 @@
   },
   {
     "trend_id": "tr_0005",
-    "keyword": "xrp",
-    "trend_score": 47,
-    "volume": 5,
-    "growth_percent": -0.201,
+    "keyword": "지디넷코리아",
+    "trend_score": 2,
+    "volume": 0,
+    "growth_percent": -0.833,
     "region": "KR",
     "timespan": "14d",
     "evidence_rawitems": [
-      "raw_0009",
-      "raw_0086",
-      "raw_0087"
+      "raw_0032",
+      "raw_0038",
+      "raw_0040"
     ],
-    "updated_at": "2025-08-24T23:51:17.402306+09:00",
+    "updated_at": "2025-08-25T00:11:47.419975+09:00",
     "series": [
       {
-        "date": "2025-08-10",
-        "value": 6.58757
-      },
-      {
         "date": "2025-08-11",
-        "value": 8.21835
+        "value": 0.07817
       },
       {
         "date": "2025-08-12",
-        "value": 6.9764
+        "value": 0.0672
       },
       {
         "date": "2025-08-13",
-        "value": 7.5408
+        "value": 0.04114
       },
       {
         "date": "2025-08-14",
-        "value": 8.58661
+        "value": 0.05211
       },
       {
         "date": "2025-08-15",
-        "value": 5.395
+        "value": 0.01851
       },
       {
         "date": "2025-08-16",
-        "value": 4.78878
+        "value": 0.0144
       },
       {
         "date": "2025-08-17",
-        "value": 4.57618
+        "value": 0.02468
       },
       {
         "date": "2025-08-18",
-        "value": 6.96543
+        "value": 0.06103
       },
       {
         "date": "2025-08-19",
-        "value": 5.69332
+        "value": 0.06514
       },
       {
         "date": "2025-08-20",
-        "value": 6.19188
+        "value": 0.06514
       },
       {
         "date": "2025-08-21",
-        "value": 4.88753
+        "value": 0.06446
       },
       {
         "date": "2025-08-22",
-        "value": 5.81676
+        "value": 0.048
       },
       {
         "date": "2025-08-23",
-        "value": 5.26539
+        "value": 0.01302
       }
     ]
   }
