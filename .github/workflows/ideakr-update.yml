@@ -18,24 +18,31 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: pip install -r requirements.txt
-
-      # 👇 여기 추가: 생성된 JSON 앞부분을 로그로 미리 보기
-      - name: Peek json heads
+      - name: Install deps
         run: |
-          echo "=== ideas.json ==="; head -n 30 data/ideas.json || true
-          echo "=== trends.json ==="; head -n 30 data/trends.json || true
-          echo "=== rawitems.json ==="; head -n 10 data/rawitems.json || true
+          python -V
+          pip install -r requirements.txt
 
       - name: Run updater
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
-        run: python scripts/update.py
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          python scripts/update.py
+
+      - name: Peek json heads
+        run: |
+          echo "=== ideas.json ==="; head -n 60 data/ideas.json || true
+          echo "=== trends.json ==="; head -n 80 data/trends.json || true
+          echo "=== rawitems.json ==="; head -n 40 data/rawitems.json || true
+          echo "=== signals.json ==="; head -n 40 data/signals.json || true
 
       - name: Commit & push if changed
         run: |
+          git status
+          git diff --name-only || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
