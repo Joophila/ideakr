@@ -1,87 +1,108 @@
 /* globals fetch */
-const state = { ideas: [], trends: [], raw: [], signals: {} };
+const S = { ideas: [], trends: [], raw: [], signals: {} };
 
-function buster() { return '?cb=' + Date.now(); }
-async function getJSON(url) { const r = await fetch(url + buster()); if(!r.ok) throw new Error(url); return r.json(); }
+const qs = (s)=>document.querySelector(s);
+const el = (id)=>document.getElementById(id);
+const txt = (id,v)=>{ const n=el(id); if(n) n.textContent = (v==null||v==='')?'—':v; };
+const cacheBust = ()=>'?cb=' + Date.now();
+async function j(url){ const r = await fetch(url+cacheBust()); if(!r.ok) throw new Error(url); return r.json(); }
 
-async function loadData() {
-  try {
+document.addEventListener('DOMContentLoaded', async ()=>{
+  try{
     const [ideas,trends,raw,signals] = await Promise.all([
-      getJSON('data/ideas.json'),
-      getJSON('data/trends.json'),
-      getJSON('data/rawitems.json'),
-      getJSON('data/signals.json').catch(()=>({}))
+      j('data/ideas.json'), j('data/trends.json'), j('data/rawitems.json'), j('data/signals.json').catch(()=>({}))
     ]);
-    state.ideas = Array.isArray(ideas)?ideas:[];
-    state.trends= Array.isArray(trends)?trends:[];
-    state.raw   = Array.isArray(raw)?raw:[];
-    state.signals=signals||{};
-  } catch(e){ console.error(e); }
-  renderAll();
-}
+    S.ideas = Array.isArray(ideas)?ideas:[];
+    S.trends= Array.isArray(trends)?trends:[];
+    S.raw   = Array.isArray(raw)?raw:[];
+    S.signals = signals||{};
+  }catch(e){ console.error(e); }
+  render();
+});
 
-function renderAll(){ renderIdea(); renderScores(); renderKeywords(); renderCommunity(); bindTabs(); }
-function textOr(v,a='—'){ return (v==null||v==='')?a:v; }
-function setText(id,v){ const el=document.getElementById(id); if(el) el.textContent = (v==null?'—':v); }
+function render(){
+  renderIdea();
+  renderScores();
+  renderKeywords();
+  renderCommunity();
+  bindTabs();
+}
 
 function renderIdea(){
-  const idea = state.ideas[0]||{};
-  document.getElementById('nav-date').textContent = new Date().toISOString().slice(0,10);
-  document.getElementById('idea-title').textContent = textOr(idea.title_ko||idea.title,'Idea of the Day');
-  document.getElementById('idea-tags').innerHTML = (idea.tags||[]).map(t=>`<span class="badge">${t}</span>`).join('');
+  const idea = S.ideas[0]||{};
+  el('nav-date').textContent = new Date().toISOString().slice(0,10);
+  el('idea-title').textContent = idea.title_ko || idea.title || 'Idea of the Day';
+  el('idea-tags').innerHTML = (idea.tags||[]).map(t=>`<span class="badge">${t}</span>`).join('');
 
-  setText('field-problem', textOr(idea.problem,'알 수 없습니다'));
-  setText('field-solution', textOr(idea.solution,'알 수 없습니다'));
-  setText('field-target', textOr(idea.target_user,'알 수 없습니다'));
-  setText('field-gtm',     textOr(idea.gtm_tactics||idea.gtm,'알 수 없습니다'));
+  txt('field-problem', idea.problem || '알 수 없습니다');
+  txt('field-solution', idea.solution || '알 수 없습니다');
+  txt('field-target', idea.target_user || '알 수 없습니다');
+  txt('field-gtm',     idea.gtm_tactics || '알 수 없습니다');
 
-  // Why
-  document.getElementById('whyBody').textContent = textOr(idea.why_now,'');
+  // Why Now
   const whyCards = Array.isArray(idea.why_cards)?idea.why_cards:[];
-  document.getElementById('whyCards').innerHTML = whyCards.length? whyCards.map(t=>`<div class="card">${t}</div>`).join('') : '';
+  el('whyBody').textContent = idea.why_now || '';
+  el('whyCards').innerHTML  = whyCards.map(t=>`<div class="card">${t}</div>`).join('');
 
-  // Proof
+  // Proof & Signals (우선 순위: evidence → raw top)
   let proofs=[];
   if(Array.isArray(idea.evidence)&&idea.evidence.length){
-    proofs = idea.evidence.slice(0,6).map(e=>({title:e.title,url:e.url,source_platform:''}));
+    proofs = idea.evidence.slice(0,8).map(e=>({title:e.title,url:e.url,src:'ref'}));
   } else {
-    proofs = [...state.raw].sort((a,b)=>
+    proofs = [...S.raw].sort((a,b)=>
       (b.metrics_upvotes||0)+(b.metrics_comments||0) - ((a.metrics_upvotes||0)+(a.metrics_comments||0))
-    ).slice(0,6);
+    ).slice(0,8).map(r=>({title:r.title,url:r.url,src:r.source_platform}));
   }
-  document.getElementById('proofCards').innerHTML = proofs.map(r=>cardLink(r.title,r.url,r.source_platform)).join('');
+  el('proofCards').innerHTML = proofs.map(p=>cardLink(p.title,p.url,p.src)).join('');
 
-  // Gap / Exec
+  // Market Gap
   const gaps = Array.isArray(idea.gap_notes)?idea.gap_notes:[];
+  const comp = Array.isArray(idea.competitors)?idea.competitors:[];
+  el('gapCards').innerHTML =
+    (gaps.map(t=>`<div class="card">${t}</div>`).join('') || `<div class="card muted">근거가 부족합니다</div>`) +
+    (comp.length? `<div class="card"><b>Competitors</b><ul style="margin:8px 0;padding-left:18px">${comp.map(c=>`<li>${c}</li>`).join('')}</ul></div>` : '');
+
+  // Execution Plan (+ Offer Ladder / Pricing / Channels / Personas)
   const exec = Array.isArray(idea.exec_steps)?idea.exec_steps:[];
-  document.getElementById('gapCards').innerHTML  = gaps.length? gaps.map(t=>`<div class="card">${t}</div>`).join('') : `<div class="card muted">근거가 부족합니다</div>`;
-  document.getElementById('execCards').innerHTML = exec.length? exec.map(t=>`<div class="card">${t}</div>`).join('') : `<div class="card muted">근거가 부족합니다</div>`;
+  const offer = Array.isArray(idea.offer_ladder)?idea.offer_ladder:[];
+  const pricing = Array.isArray(idea.pricing)?idea.pricing:[];
+  const channels = Array.isArray(idea.channels)?idea.channels:[];
+  const personas = Array.isArray(idea.personas)?idea.personas:[];
+  el('execCards').innerHTML =
+    (exec.map(t=>`<div class="card">${t}</div>`).join('') || `<div class="card muted">근거가 부족합니다</div>`) +
+    (offer.length? `<div class="card"><b>Offer Ladder</b><ul style="margin:8px 0;padding-left:18px">${offer.map(o=>`<li>${o.name} — ${o.price} (${o.unit})</li>`).join('')}</ul></div>` : '') +
+    (pricing.length? `<div class="card"><b>Pricing</b><ul style="margin:8px 0;padding-left:18px">${pricing.map(p=>`<li>${p}</li>`).join('')}</ul></div>` : '') +
+    (channels.length? `<div class="card"><b>Channels</b><ul style="margin:8px 0;padding-left:18px">${channels.map(c=>`<li>${c}</li>`).join('')}</ul></div>` : '') +
+    (personas.length? `<div class="card"><b>Personas</b><ul style="margin:8px 0;padding-left:18px">${personas.map(p=>`<li>${p.name} — pain: ${p.pain} / JTBD: ${p.jtbd}</li>`).join('')}</ul></div>` : '');
 }
 
-function cardLink(title,url,src){ const s=src?`<div class="mini muted">${src}</div>`:''; return `<div class="card"><div><a class="link" href="${url||'#'}" target="_blank" rel="noopener">${title||'제목 없음'}</a>${s}</div></div>`; }
+function cardLink(title,url,src){
+  const ss = src?`<div class="mini muted" style="margin-top:6px">${src}</div>`:'';
+  return `<div class="card"><div><a class="link" target="_blank" rel="noopener" href="${url||'#'}">${title||'제목 없음'}</a>${ss}</div></div>`;
+}
 
+// --- Scores ---
 function renderScores(){
-  const idea = state.ideas[0]||{};
+  const idea = S.ideas[0]||{};
   const s = idea.score_breakdown||{};
   let trend=s.trend, market=s.market, comp=s.competition_invert, feas=s.feasibility, mon=s.monetization, reg=s.regulatory_invert, overall=idea.score_total;
 
   if([trend,market,comp,feas,mon,reg,overall].some(v=>v==null)){
-    const vol = avg(state.trends.map(t=>+t.volume||0));
-    const gr  = avg(state.trends.map(t=>(+t.growth_percent||0)*100));
+    const vol = avg(S.trends.map(t=>+t.volume||0));
+    const gr  = avg(S.trends.map(t=>(+t.growth_percent||0)*100));
     trend = Math.min(100, Math.round(vol*0.5 + gr*0.8));
-    market= Math.min(100, state.raw.length*2);
-    comp  = Math.max(0, 100 - Math.min(90, (state.raw.length/5)*10));
+    market= Math.min(100, S.raw.length*2);
+    comp  = Math.max(0, 100 - Math.min(90, (S.raw.length/5)*10));
     feas  = 50; mon=50; reg=50;
     overall = Math.round(0.35*trend + 0.25*market + 0.15*comp + 0.25*50);
   }
-  setText('scoreOverall', overall);
-  setText('sTrend', trend); setText('sMarket', market); setText('sComp', comp);
-  setText('sFeas', feas); setText('sMon', mon); setText('sReg', reg);
+  txt('scoreOverall', overall);
+  txt('sTrend', trend); txt('sMarket', market); txt('sComp', comp);
+  txt('sFeas', feas); txt('sMon', mon); txt('sReg', reg);
 }
-
 function avg(a){ if(!a.length) return 0; return a.reduce((x,y)=>x+y,0)/a.length; }
 
-// ---- Keywords & Chart ----
+// --- Trend chart ---
 function isBadKw(s){
   if(!s) return true;
   const bad = /^(https?|www|com|co|kr|net|news)$/i;
@@ -92,28 +113,28 @@ function isBadKw(s){
 }
 
 function renderKeywords(){
-  const list = state.trends.filter(t=>!isBadKw(t.keyword));
-  const sel = document.getElementById('kwSelect');
+  const list = S.trends.filter(t=>!isBadKw(t.keyword));
+  const sel = el('kwSelect');
   sel.innerHTML = list.map((t,i)=>`<option value="${i}">${t.keyword}</option>`).join('');
   if(list.length){
     sel.value="0";
     sel.onchange = ()=> drawTrend(+sel.value,list);
     drawTrend(0,list);
   } else {
-    document.getElementById('trendSvg').innerHTML='';
-    document.getElementById('chartEmpty').style.display='block';
-    setText('kwVol','—'); setText('kwGrowth','—');
+    el('trendSvg').innerHTML='';
+    el('chartEmpty').style.display='block';
+    txt('kwVol','—'); txt('kwGrowth','—');
   }
 }
 
 function drawTrend(idx,arr){
   const t = arr[idx];
-  setText('kwVol', t.volume??'—');
+  txt('kwVol', t.volume??'—');
   const gp = (typeof t.growth_percent==='number')? Math.round(t.growth_percent*1000)/10 : null;
-  setText('kwGrowth', gp==null?'—':(gp+'%'));
+  txt('kwGrowth', gp==null?'—':(gp+'%'));
 
-  const svg = document.getElementById('trendSvg');
-  const empty = document.getElementById('chartEmpty');
+  const svg = el('trendSvg');
+  const empty = el('chartEmpty');
   const series = Array.isArray(t.series)?t.series:[];
   if(!series.length){ svg.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display='none';
@@ -130,32 +151,29 @@ function drawTrend(idx,arr){
   svg.innerHTML = `<rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/><path d="${d}" fill="none" stroke="#7cc6ff" stroke-width="2"/>`;
 }
 
-// ---- Community ----
+// --- Community ---
 function renderCommunity(){
-  const s=state.signals||{};
-  const el=document.getElementById('communityPanel');
+  const s=S.signals||{};
+  const elp=el('communityPanel');
   const rows=[];
-  if(s.reddit)  rows.push(line('reddit',  `posts ${s.reddit.posts||0} · 👍 ${s.reddit.upvotes||0} · 💬 ${s.reddit.comments||0}`));
+  if(s.reddit)  rows.push(line('reddit',`posts ${s.reddit.posts||0} · 👍 ${s.reddit.upvotes||0} · 💬 ${s.reddit.comments||0}`));
   if(s.youtube) rows.push(line('YouTube',`videos ${s.youtube.videos||0}`));
-  if(s.naver)   rows.push(line('naver',  `groups ${s.naver.groups||0}`));
-  el.innerHTML = rows.join('') || '<div class="muted">근거가 부족합니다</div>';
+  if(s.naver)   rows.push(line('naver',`groups ${s.naver.groups||0}`));
+  elp.innerHTML = rows.join('') || '<div class="muted">근거가 부족합니다</div>';
 }
 function line(a,b){ return `<div class="mini"><b>${a}</b> — ${b}</div>`; }
 
-// ---- Tabs ----
+// --- Tabs ---
 function bindTabs(){
   const btns=document.querySelectorAll('.tab-btn');
-  const panels={'why':id('tab-why'),'proof':id('tab-proof'),'gap':id('tab-gap'),'exec':id('tab-exec')};
-  btns.forEach(btn=>{
-    btn.onclick=()=>{
-      btns.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      const k=btn.dataset.tab;
+  const panels={'why':el('tab-why'),'proof':el('tab-proof'),'gap':el('tab-gap'),'exec':el('tab-exec')};
+  btns.forEach(b=>{
+    b.onclick=()=>{
+      btns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      const k=b.dataset.tab;
       Object.values(panels).forEach(p=>p.classList.remove('active'));
       (panels[k]||panels['why']).classList.add('active');
     };
   });
 }
-function id(s){ return document.getElementById(s); }
-
-document.addEventListener('DOMContentLoaded', loadData);
