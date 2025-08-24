@@ -1,157 +1,146 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IdeaBrowser KR</title>
-  <link rel="stylesheet" href="styles.css?v=free1">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Idea of the Day — IdeaBrowser KR</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* 최소 보조 스타일 (styles.css가 있으면 그대로 사용) */
+    :root { --muted:#8aa; --card:#0e1924; --ink:#dfe8ff; --border:#1f3244; }
+    body{background:#0a1420;color:var(--ink);font-family:Inter,system-ui,AppleSDGothicNeo,"Noto Sans KR",sans-serif}
+    .wrap{max-width:1100px;margin:30px auto;padding:0 16px}
+    .row{display:grid;gap:16px}
+    .row-2{grid-template-columns:2fr 1fr}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+    .ttl{font-size:32px;font-weight:800;margin:6px 0 12px}
+    .subttl{font-size:18px;margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .kvs{display:flex;gap:18px;align-items:center}
+    .badge{background:#132a43;border:1px solid var(--border);padding:4px 8px;border-radius:999px;font-size:12px}
+    .scores{display:grid;grid-template-columns:1fr;gap:8px}
+    .score-row{display:flex;justify-content:space-between;background:#0c1a29;border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+    .overall{font-size:24px;font-weight:800;text-align:right}
+    .chartbox{position:relative;height:260px;border:1px dashed var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center}
+    svg{width:100%;height:100%}
+    .kbar{display:flex;gap:8px;align-items:center;margin:6px 0 10px}
+    select{background:#0f2032;color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:6px 10px}
+    .tabs{display:flex;gap:8px;margin:10px 0 0}
+    .tab-btn{background:#0f2032;border:1px solid var(--border);color:var(--ink);padding:8px 12px;border-radius:10px;cursor:pointer}
+    .tab-btn.active{background:#16324a}
+    .tab-panels{margin-top:12px}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+    .grid-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mini{font-size:12px}
+    a.link{color:#9dd7ff;text-decoration:none}
+    .list{display:grid;gap:8px}
+  </style>
 </head>
 <body>
-<header class="container site-header">
-  <h1 class="brand">Idea of the Day</h1>
-  <nav class="topnav">
-    <a href="#home" class="nav-link">Today</a>
-    <a href="#upgrade" class="nav-link">Upgrade plan</a>
-  </nav>
-</header>
+  <div class="wrap">
+    <div class="kvs">
+      <div id="nav-prev" class="badge">←</div>
+      <div id="nav-date" class="badge">—</div>
+      <div id="nav-next" class="badge">→</div>
+      <div class="badge">Today</div>
+    </div>
 
-<main class="container">
-  <!-- TODAY DETAIL -->
-  <section id="home" class="view">
-    <article id="today-wrap" class="today">
-      <header class="today-head">
-        <div class="head-row">
-          <div class="crumbs">
-            <button id="prevIdea" class="btn icon" title="Previous" disabled>←</button>
-            <span class="muted sep">|</span>
-            <time id="todayDate" class="muted"></time>
-            <span class="muted sep">|</span>
-            <button id="nextIdea" class="btn icon" title="Next" disabled>→</button>
+    <h1 class="ttl" id="idea-title">Idea of the Day</h1>
+    <div id="idea-tags" class="kvs" style="flex-wrap:wrap;"></div>
+
+    <div class="row row-2" style="margin-top:14px;">
+      <div class="card">
+        <div class="row" style="grid-template-columns:1fr 1fr">
+          <div>
+            <h3 class="subttl">Problem</h3>
+            <div id="field-problem" class="para muted">—</div>
+          </div>
+          <div>
+            <h3 class="subttl">Solution</h3>
+            <div id="field-solution" class="para muted">—</div>
+          </div>
+          <div>
+            <h3 class="subttl">Target User</h3>
+            <div id="field-target" class="para muted">—</div>
+          </div>
+          <div>
+            <h3 class="subttl">Go-to-Market</h3>
+            <div id="field-gtm" class="para muted">—</div>
           </div>
         </div>
-        <h2 id="todayTitle" class="today-title">—</h2>
-        <p id="todayOneLiner" class="today-oneliner"></p>
-        <div id="todayTags" class="badges"></div>
-      </header>
 
-      <!-- Summary row -->
-      <section class="summary-grid">
-        <div class="summary-left card">
-          <h3 class="subttl">Problem</h3>
-          <p id="todayProblem" class="para"></p>
-          <h3 class="subttl">Solution</h3>
-          <p id="todaySolution" class="para"></p>
-          <div class="two-cols">
-            <div>
-              <h4 class="subttl">Target User</h4>
-              <p id="todayTarget" class="para"></p>
-            </div>
-            <div>
-              <h4 class="subttl">Go-to-Market</h4>
-              <p id="todayGTM" class="para"></p>
-            </div>
+        <div style="margin-top:14px;">
+          <div class="kbar">
+            <label for="kwSelect" class="mini muted">Keyword:</label>
+            <select id="kwSelect"></select>
+            <span class="mini muted">Vol:</span><span id="kwVol" class="mini">—</span>
+            <span class="mini muted">Growth:</span><span id="kwGrowth" class="mini">—</span>
+          </div>
+          <div class="chartbox">
+            <svg id="trendSvg" viewBox="0 0 600 260" preserveAspectRatio="none"></svg>
+            <div id="chartEmpty" class="muted mini" style="position:absolute">시계열 없음 — volume만 표기</div>
           </div>
         </div>
-        <aside class="summary-right card">
-          <h3 class="subttl">Scores</h3>
-          <div id="scoreChips" class="score-grid"></div>
-          <div class="overall">
-            <span class="muted">Overall</span>
-            <span id="scoreTotal" class="big-score">—</span>
-          </div>
-          <div class="source-links" id="sourceLinks"></div>
-        </aside>
-      </section>
+      </div>
 
-      <!-- Trend + Community -->
-      <section class="trend-grid">
-        <div class="card">
-          <header class="row-between">
-            <div class="row">
-              <span class="muted">Keyword:</span>
-              <select id="trendKeywordSel"></select>
-            </div>
-            <div class="row gap">
-              <span class="chip">Vol: <b id="volVal">—</b></span>
-              <span class="chip">Growth: <b id="growthVal">—</b></span>
-            </div>
-          </header>
-          <div id="trendChart" class="chart"></div>
-          <p class="muted tiny">* 시계열(series)이 없으면 단일 값으로 표시됩니다.</p>
+      <div class="card">
+        <h3 class="subttl">Scores</h3>
+        <div class="scores">
+          <div class="score-row"><span>Overall</span><span id="scoreOverall" class="overall">—</span></div>
+          <div class="score-row"><span>trend</span><span id="sTrend">—</span></div>
+          <div class="score-row"><span>market</span><span id="sMarket">—</span></div>
+          <div class="score-row"><span>competition invert</span><span id="sComp">—</span></div>
+          <div class="score-row"><span>feasibility</span><span id="sFeas">—</span></div>
+          <div class="score-row"><span>monetization</span><span id="sMon">—</span></div>
+          <div class="score-row"><span>regulatory invert</span><span id="sReg">—</span></div>
         </div>
-        <aside class="card">
-          <h3 class="subttl">Community Signals</h3>
-          <ul id="communityList" class="list"></ul>
-        </aside>
-      </section>
+      </div>
+    </div>
 
-      <!-- Tabs -->
-      <section class="tabs">
-        <div class="tab-bar">
+    <div class="row row-2" style="margin-top:16px;">
+      <div class="card">
+        <div class="tabs">
           <button class="tab-btn active" data-tab="why">Why Now</button>
           <button class="tab-btn" data-tab="proof">Proof & Signals</button>
           <button class="tab-btn" data-tab="gap">Market Gap</button>
           <button class="tab-btn" data-tab="exec">Execution Plan</button>
         </div>
+
         <div class="tab-panels">
           <div id="tab-why" class="tab-panel active">
             <h3 class="subttl">왜 지금인가?</h3>
             <div id="whyBody" class="para"></div>
             <div id="whyCards" class="grid-cards"></div>
           </div>
+
           <div id="tab-proof" class="tab-panel">
             <h3 class="subttl">증거 & 신호</h3>
             <div id="proofCards" class="grid-cards"></div>
           </div>
+
           <div id="tab-gap" class="tab-panel">
             <h3 class="subttl">마켓 갭 분석</h3>
             <div id="gapCards" class="grid-cards"></div>
           </div>
+
           <div id="tab-exec" class="tab-panel">
             <h3 class="subttl">실행 계획</h3>
             <div id="execCards" class="grid-cards"></div>
           </div>
         </div>
-      </section>
-    </article>
-  </section>
+      </div>
 
-  <!-- Upgrade (Pro preview only) -->
-  <section id="upgrade" class="view hidden">
-    <h2>Upgrade plan</h2>
-    <p class="muted">모든 핵심 정보는 무료로 제공합니다. 아래 기능은 업그레이드 시 추가됩니다.</p>
-    <div class="grid">
       <div class="card">
-        <h3>🔎 Research Your Ideas <span class="badge">Pro</span></h3>
-        <p class="para">24시간 내 40단계 리서치 리포트 자동생성. 출처·지표·리스크 정리.</p>
-      </div>
-      <div class="card">
-        <h3>🔧 Idea Builder <span class="badge">Pro</span></h3>
-        <p class="para">리서치를 실행 가능한 빌드 플랜으로 변환. KPI·예산·타임라인 포함.</p>
-      </div>
-      <div class="card">
-        <h3>💬 Chat & Strategize <span class="badge">Pro</span></h3>
-        <p class="para">아이디어별 맞춤 코파일럿으로 심층 전략 질의응답.</p>
+        <h3 class="subttl">Community Signals</h3>
+        <div id="communityPanel" class="list"></div>
       </div>
     </div>
-    <div class="card" style="margin-top:12px">
-      <h3>계정이 없나요?</h3>
-      <p class="para">Google 또는 이메일로 가입 가능합니다. 이메일 가입 시 본인인증(이메일 검증)이 필요합니다.</p>
-      <a href="auth.html" class="btn">Sign in / Sign up</a>
-    </div>
-  </section>
-</main>
 
-<footer class="container footer">
-  <span class="muted">© IdeaBrowser KR</span>
-  <span class="sep"></span>
-  <a class="muted" href="auth.html">Sign in</a>
-</footer>
+    <div style="margin:22px 0" class="muted mini">© IdeaBrowser KR</div>
+  </div>
 
-<script src="script.js?v=free1"></script>
+  <script src="script.js"></script>
 </body>
 </html>
 
