@@ -73,23 +73,101 @@ $(`communityTitle`) && ($(`communityTitle`).textContent = LABELS.proof.reddit);
 $(`searchTitle`) && ($(`searchTitle`).textContent = LABELS.proof.naver);
 
 async function loadData() {
-  try {
-    const [ideas, trends, insights, raw] = await Promise.all([
-      fetch('data/ideas.json?cb='+Date.now()).then(r=>r.json()),
-      fetch('data/trends.json?cb='+Date.now()).then(r=>r.json()),
-      fetch('data/insights.json?cb='+Date.now()).then(r=>r.json()),
-      fetch('data/rawitems.json?cb='+Date.now()).then(r=>r.json()),
-    ]);
-    state.ideas = Array.isArray(ideas) ? ideas : [];
-    state.trends = Array.isArray(trends) ? trends : [];
-    state.insights = Array.isArray(insights) ? insights : [];
-    state.raw = Array.isArray(raw) ? raw : [];
-  } catch (e) {
-    console.error('loadData error', e);
-    state.ideas = state.trends = state.insights = state.raw = [];
-  }
+  // 1) 원본 로드
+  const [ideasRaw, trendsRaw, insightsRaw, rawRaw] = await Promise.all([
+    fetch('data/ideas.json?cb=' + Date.now()).then(r => r.json()),
+    fetch('data/trends.json?cb=' + Date.now()).then(r => r.json()),
+    fetch('data/insights.json?cb=' + Date.now()).then(r => r.json()),
+    fetch('data/rawitems.json?cb=' + Date.now()).then(r => r.json()),
+  ]);
+
+  // 2) 스키마 정규화 (서버/스크립트 버전에 따라 달라진 키를 프론트 기대치에 맞춤)
+  const normalize = {
+    // ideas.json
+    ideas(arr = []) {
+      return arr.map(i => ({
+        idea_id: i.idea_id || i.id || '',
+        title_ko: i.title_ko || i.title || '(제목 없음)',
+        one_liner: i.one_liner || i.tagline || '',
+        problem: i.problem ?? '근거가 부족합니다',
+        solution: i.solution ?? '근거가 부족합니다',
+        target_user: i.target_user ?? '—',
+        gtm_tactics: i.gtm_tactics || i.sections?.execution_plan?.core || '—',
+        why_now: i.why_now || i.sections?.why_now || '',
+        // 점수 키 통일
+        score_breakdown: i.score_breakdown || i.scores || {},
+        score_total: (i.score_total != null) ? i.score_total : (i.scores?.overall ?? 0),
+        // 링크/태그
+        tags: Array.isArray(i.tags) ? i.tags : [],
+        trend_link: i.trend_link || i.trends || [],
+        sources_linked: i.sources_linked || i.evidence?.map(e => e.raw_id).filter(Boolean) || [],
+        // 날짜 플래그
+        created_at: i.created_at || i.date || '',
+        is_today: !!i.is_today
+      }));
+    },
+    // trends.json
+    trends(arr = []) {
+      return arr.map(t => {
+        // growth_percent가 0~1(비율)로 온 경우를 0~100(%)로 보여주기 위해 보정은 렌더 함수에서 이미 함.
+        // 여기서는 원본을 그대로 두고, series가 없으면 빈 배열을 채움.
+        const series = Array.isArray(t.series) ? t.series
+                      : Array.isArray(t.data) ? t.data.map(p => ({ date: p.date || p.period, volume: p.volume ?? p.ratio ?? 0 }))
+                      : [];
+        return {
+          trend_id: t.trend_id || t.id || '',
+          keyword: t.keyword || t.term || '',
+          trend_score: t.trend_score ?? 0,
+          volume: t.volume ?? 0,
+          growth_percent: (typeof t.growth_percent === 'number' && t.growth_percent > 1)
+                          ? (t.growth_percent / 100) : (t.growth_percent ?? 0), // 내부는 0~1로 정규화
+          region: t.region || 'KR',
+          timespan: t.timespan || '14d',
+          evidence_rawitems: Array.isArray(t.evidence_rawitems) ? t.evidence_rawitems : [],
+          updated_at: t.updated_at || t.updatedAt || '',
+          series
+        };
+      });
+    },
+    // insights/ raw는 그대론데, 누락 필드를 안전하게 채움
+    insights(arr = []) {
+      return arr.map(x => ({
+        title: x.title || '',
+        notes: x.notes || '',
+        pain_points_level: x.pain_points_level ?? '',
+        solution_gap_level: x.solution_gap_level ?? '',
+        revenue_potential: x.revenue_potential ?? '',
+        related_idea: x.related_idea || ''
+      }));
+    },
+    raw(arr = []) {
+      return arr.map(r => ({
+        raw_id: r.raw_id || r.id || '',
+        source_platform: r.source_platform || r.source || '',
+        query_or_topic: r.query_or_topic || r.topic || '',
+        title: r.title || '',
+        content_snippet: r.content_snippet || r.snippet || '',
+        url: r.url || '',
+        metrics_upvotes: parseInt(r.metrics_upvotes || r.upvotes || 0, 10) || 0,
+        metrics_comments: parseInt(r.metrics_comments || r.comments || 0, 10) || 0,
+        search_volume: r.search_volume || '',
+        language: r.language || 'ko',
+        published_at: r.published_at || r.date || '',
+        fetched_at: r.fetched_at || ''
+      }));
+    }
+  };
+
+  // 3) 상태 반영
+  state.ideas    = normalize.ideas(ideasRaw);
+  state.trends   = normalize.trends(trendsRaw);
+  state.insights = normalize.insights(insightsRaw);
+  state.raw      = normalize.raw(rawRaw);
+
+  // 4) 최초 렌더
   renderHome();
 }
+
 
 function pickTodayIdea() {
   const todays = state.ideas.filter(i => i && i.is_today);
