@@ -1,313 +1,198 @@
-// Free build (모든 정보 공개). 탭: Today / Upgrade.
-const state = { ideas: [], trends: [], insights: [], raw: [] };
-
-document.addEventListener('DOMContentLoaded', () => {
-  // nav
-  document.querySelectorAll('.nav-link').forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = a.getAttribute('href').slice(1);
-      document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
-      document.getElementById(target).classList.remove('hidden');
-      if(target === 'home') renderHome();
-    });
-  });
-// === UI Labels (KR) ===
-const LABELS = {
-  appTitle: "오늘의 아이디어",
-  tabs: { why: "타이밍", proof: "증거·신호", gap: "기회 공백", exec: "실행 전략" },
-  timing: {
-    title: "왜 지금인가?",
-    boxes: {
-      market: "시장 타이밍 포인트",
-      tech: "기술 동인",
-      risk: "리스크 완화 근거",
-      data: "보강 데이터",
-    },
-  },
-  proof: { title: "증거·신호", reddit: "커뮤니티 신호", naver: "검색 신호" },
-  gap: { title: "기회 공백" },
-  exec: { title: "실행 전략" },
+/* globals fetch */
+const state = {
+  ideas: [],
+  trends: [],
+  raw: [],
+  signals: {}
 };
 
-  // tabs
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('.tab-btn'); if(!btn) return;
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-  });
-
-  loadData();
-});
-const $ = (id) => document.getElementById(id);
-
-$(`appTitle`) && ($(`appTitle`).textContent = LABELS.appTitle);
-$(`btnWhyNow`) && ($(`btnWhyNow`).textContent = LABELS.tabs.why);
-$(`btnProof`) && ($(`btnProof`).textContent = LABELS.tabs.proof);
-$(`btnMarketGap`) && ($(`btnMarketGap`).textContent = LABELS.tabs.gap);
-$(`btnExecPlan`) && ($(`btnExecPlan`).textContent = LABELS.tabs.exec);
-
-$(`whyTitle`) && ($(`whyTitle`).textContent = LABELS.timing.title);
-$(`proofTitle`) && ($(`proofTitle`).textContent = LABELS.proof.title);
-$(`gapTitle`) && ($(`gapTitle`).textContent = LABELS.gap.title);
-$(`execTitle`) && ($(`execTitle`).textContent = LABELS.exec.title);
-
-$(`communityTitle`) && ($(`communityTitle`).textContent = LABELS.proof.reddit);
-$(`searchTitle`) && ($(`searchTitle`).textContent = LABELS.proof.naver);
-const $ = (id) => document.getElementById(id);
-
-$(`appTitle`) && ($(`appTitle`).textContent = LABELS.appTitle);
-$(`btnWhyNow`) && ($(`btnWhyNow`).textContent = LABELS.tabs.why);
-$(`btnProof`) && ($(`btnProof`).textContent = LABELS.tabs.proof);
-$(`btnMarketGap`) && ($(`btnMarketGap`).textContent = LABELS.tabs.gap);
-$(`btnExecPlan`) && ($(`btnExecPlan`).textContent = LABELS.tabs.exec);
-
-$(`whyTitle`) && ($(`whyTitle`).textContent = LABELS.timing.title);
-$(`proofTitle`) && ($(`proofTitle`).textContent = LABELS.proof.title);
-$(`gapTitle`) && ($(`gapTitle`).textContent = LABELS.gap.title);
-$(`execTitle`) && ($(`execTitle`).textContent = LABELS.exec.title);
-
-$(`communityTitle`) && ($(`communityTitle`).textContent = LABELS.proof.reddit);
-$(`searchTitle`) && ($(`searchTitle`).textContent = LABELS.proof.naver);
+function buster() { return '?cb=' + Date.now(); }
+async function getJSON(url) {
+  const r = await fetch(url + buster());
+  if (!r.ok) throw new Error('HTTP ' + r.status + ' @ ' + url);
+  return r.json();
+}
 
 async function loadData() {
-  // 1) 원본 로드
-  const [ideasRaw, trendsRaw, insightsRaw, rawRaw] = await Promise.all([
-    fetch('data/ideas.json?cb=' + Date.now()).then(r => r.json()),
-    fetch('data/trends.json?cb=' + Date.now()).then(r => r.json()),
-    fetch('data/insights.json?cb=' + Date.now()).then(r => r.json()),
-    fetch('data/rawitems.json?cb=' + Date.now()).then(r => r.json()),
-  ]);
-
-  // 2) 스키마 정규화 (서버/스크립트 버전에 따라 달라진 키를 프론트 기대치에 맞춤)
-  const normalize = {
-    // ideas.json
-    ideas(arr = []) {
-      return arr.map(i => ({
-        idea_id: i.idea_id || i.id || '',
-        title_ko: i.title_ko || i.title || '(제목 없음)',
-        one_liner: i.one_liner || i.tagline || '',
-        problem: i.problem ?? '근거가 부족합니다',
-        solution: i.solution ?? '근거가 부족합니다',
-        target_user: i.target_user ?? '—',
-        gtm_tactics: i.gtm_tactics || i.sections?.execution_plan?.core || '—',
-        why_now: i.why_now || i.sections?.why_now || '',
-        // 점수 키 통일
-        score_breakdown: i.score_breakdown || i.scores || {},
-        score_total: (i.score_total != null) ? i.score_total : (i.scores?.overall ?? 0),
-        // 링크/태그
-        tags: Array.isArray(i.tags) ? i.tags : [],
-        trend_link: i.trend_link || i.trends || [],
-        sources_linked: i.sources_linked || i.evidence?.map(e => e.raw_id).filter(Boolean) || [],
-        // 날짜 플래그
-        created_at: i.created_at || i.date || '',
-        is_today: !!i.is_today
-      }));
-    },
-    // trends.json
-    trends(arr = []) {
-      return arr.map(t => {
-        // growth_percent가 0~1(비율)로 온 경우를 0~100(%)로 보여주기 위해 보정은 렌더 함수에서 이미 함.
-        // 여기서는 원본을 그대로 두고, series가 없으면 빈 배열을 채움.
-        const series = Array.isArray(t.series) ? t.series
-                      : Array.isArray(t.data) ? t.data.map(p => ({ date: p.date || p.period, volume: p.volume ?? p.ratio ?? 0 }))
-                      : [];
-        return {
-          trend_id: t.trend_id || t.id || '',
-          keyword: t.keyword || t.term || '',
-          trend_score: t.trend_score ?? 0,
-          volume: t.volume ?? 0,
-          growth_percent: (typeof t.growth_percent === 'number' && t.growth_percent > 1)
-                          ? (t.growth_percent / 100) : (t.growth_percent ?? 0), // 내부는 0~1로 정규화
-          region: t.region || 'KR',
-          timespan: t.timespan || '14d',
-          evidence_rawitems: Array.isArray(t.evidence_rawitems) ? t.evidence_rawitems : [],
-          updated_at: t.updated_at || t.updatedAt || '',
-          series
-        };
-      });
-    },
-    // insights/ raw는 그대론데, 누락 필드를 안전하게 채움
-    insights(arr = []) {
-      return arr.map(x => ({
-        title: x.title || '',
-        notes: x.notes || '',
-        pain_points_level: x.pain_points_level ?? '',
-        solution_gap_level: x.solution_gap_level ?? '',
-        revenue_potential: x.revenue_potential ?? '',
-        related_idea: x.related_idea || ''
-      }));
-    },
-    raw(arr = []) {
-      return arr.map(r => ({
-        raw_id: r.raw_id || r.id || '',
-        source_platform: r.source_platform || r.source || '',
-        query_or_topic: r.query_or_topic || r.topic || '',
-        title: r.title || '',
-        content_snippet: r.content_snippet || r.snippet || '',
-        url: r.url || '',
-        metrics_upvotes: parseInt(r.metrics_upvotes || r.upvotes || 0, 10) || 0,
-        metrics_comments: parseInt(r.metrics_comments || r.comments || 0, 10) || 0,
-        search_volume: r.search_volume || '',
-        language: r.language || 'ko',
-        published_at: r.published_at || r.date || '',
-        fetched_at: r.fetched_at || ''
-      }));
-    }
-  };
-
-  // 3) 상태 반영
-  state.ideas    = normalize.ideas(ideasRaw);
-  state.trends   = normalize.trends(trendsRaw);
-  state.insights = normalize.insights(insightsRaw);
-  state.raw      = normalize.raw(rawRaw);
-
-  // 4) 최초 렌더
-  renderHome();
+  try {
+    const [ideas, trends, raw, signals] = await Promise.all([
+      getJSON('data/ideas.json'),
+      getJSON('data/trends.json'),
+      getJSON('data/rawitems.json'),
+      getJSON('data/signals.json').catch(() => ({}))
+    ]);
+    // 그대로 사용 (예전 스키마 전제)
+    state.ideas   = Array.isArray(ideas) ? ideas : [];
+    state.trends  = Array.isArray(trends) ? trends : [];
+    state.raw     = Array.isArray(raw) ? raw : [];
+    state.signals = signals || {};
+  } catch (e) {
+    console.error('loadData failed', e);
+  }
+  renderAll();
 }
 
-
-function pickTodayIdea() {
-  const todays = state.ideas.filter(i => i && i.is_today);
-  if (todays.length) return todays[0];
-  return state.ideas.sort((a,b)=>(b?.score_total||0)-(a?.score_total||0))[0];
+function renderAll() {
+  renderIdea();
+  renderScores();
+  renderKeywords();
+  renderCommunity();
+  bindTabs();
 }
 
-function renderHome() {
-  const idea = pickTodayIdea();
-  if (!idea) {
-    document.getElementById('todayTitle').textContent = '데이터 없음';
-    document.getElementById('todayOneLiner').textContent = '데이터 파일이 비어있거나 로딩 실패';
-    // 점수/그래프/커뮤니티도 모두 ‘—’로 초기화
-    document.getElementById('overallScore').textContent = '—';
-    document.getElementById('trendChart').innerHTML = emptyChart('데이터 없음');
-    document.getElementById('communityList').innerHTML = '';
+/* ---------- Idea card ---------- */
+function textOr(v, alt='—') { return (v == null || v === '') ? alt : v; }
+
+function renderIdea() {
+  const idea = state.ideas[0] || {};
+  document.getElementById('nav-date').textContent = new Date().toISOString().slice(0,10);
+  document.getElementById('idea-title').textContent = textOr(idea.title_ko || idea.title, 'Idea of the Day');
+
+  const tagsEl = document.getElementById('idea-tags');
+  tagsEl.innerHTML = (idea.tags || []).map(t => `<span class="badge">${t}</span>`).join('');
+
+  document.getElementById('field-problem').textContent = textOr(idea.problem, '알 수 없습니다');
+  document.getElementById('field-solution').textContent = textOr(idea.solution, '알 수 없습니다');
+  document.getElementById('field-target').textContent = textOr(idea.target_user, '알 수 없습니다');
+  document.getElementById('field-gtm').textContent = textOr(idea.gtm_tactics || idea.gtm, '알 수 없습니다');
+
+  // Why Now 본문
+  document.getElementById('whyBody').textContent = textOr(idea.why_now, '근거가 부족합니다');
+
+  // Proof cards: raw 중 상위 6개
+  const topRaw = [...state.raw].sort((a,b) =>
+    (b.metrics_upvotes||0)+(b.metrics_comments||0) - ((a.metrics_upvotes||0)+(a.metrics_comments||0))
+  ).slice(0,6);
+  document.getElementById('proofCards').innerHTML = topRaw.map(r => cardLink(r.title, r.url, r.source_platform)).join('');
+
+  // Gap/Exec: 데이터가 별도 없으면 기본 문구
+  document.getElementById('gapCards').innerHTML  = emptyCard('근거가 부족합니다');
+  document.getElementById('execCards').innerHTML = emptyCard('근거가 부족합니다');
+}
+
+function cardLink(title, url, sub) {
+  const src = sub ? `<div class="mini muted">${sub}</div>` : '';
+  return `<div class="card"><div><a class="link" href="${url||'#'}" target="_blank" rel="noopener">${title||'제목 없음'}</a>${src}</div></div>`;
+}
+function emptyCard(msg) {
+  return `<div class="card muted">${msg}</div>`;
+}
+
+/* ---------- Scores ---------- */
+function renderScores() {
+  const idea = state.ideas[0] || {};
+  // 아이디어가 점수를 내놨으면 사용, 아니면 대충 계산
+  const s = idea.score_breakdown || {};
+  let trend = s.trend, market = s.market, comp = s.competition_invert, feas = s.feasibility, mon = s.monetization, reg = s.regulatory_invert, overall = idea.score_total;
+
+  if ([trend,market,comp,feas,mon,reg,overall].some(v => v == null)) {
+    // 간단 산식
+    const vol = avg(state.trends.map(t => +t.volume || 0));
+    const gr  = avg(state.trends.map(t => +t.growth_percent || 0)) * 100;
+    trend = Math.min(100, Math.round(vol*0.5 + gr*0.8));
+    market= Math.min(100, state.raw.length*2);
+    comp  = Math.max(0, 100 - Math.min(90, (state.raw.length/5)*10));
+    feas  = 50; mon=50; reg=50;
+    overall = Math.round(0.35*trend + 0.25*market + 0.15*comp + 0.25*50);
+  }
+
+  setText('scoreOverall', overall);
+  setText('sTrend', trend);
+  setText('sMarket', market);
+  setText('sComp', comp);
+  setText('sFeas', feas);
+  setText('sMon', mon);
+  setText('sReg', reg);
+}
+
+function setText(id, v){ const el=document.getElementById(id); if(el) el.textContent = (v==null?'—':v); }
+function avg(a){ if(!a.length) return 0; return a.reduce((x,y)=>x+y,0)/a.length; }
+
+/* ---------- Keyword & Chart ---------- */
+function renderKeywords() {
+  const sel = document.getElementById('kwSelect');
+  sel.innerHTML = state.trends.map((t,i)=>`<option value="${i}">${t.keyword}</option>`).join('');
+  if (state.trends.length) {
+    sel.value = "0";
+    sel.onchange = () => drawTrend(+sel.value);
+    drawTrend(0);
+  } else {
+    // 차트 비움
+    document.getElementById('trendSvg').innerHTML = '';
+    document.getElementById('chartEmpty').style.display = 'block';
+    setText('kwVol','—'); setText('kwGrowth','—');
+  }
+}
+
+function drawTrend(idx) {
+  const t = state.trends[idx];
+  if (!t) return;
+  setText('kwVol', t.volume ?? '—');
+  const gp = (typeof t.growth_percent === 'number') ? Math.round(t.growth_percent*1000)/10 : null;
+  setText('kwGrowth', gp==null ? '—' : (gp+'%'));
+
+  const svg = document.getElementById('trendSvg');
+  const empty = document.getElementById('chartEmpty');
+
+  const series = Array.isArray(t.series) ? t.series : [];
+  if (!series.length) {
+    svg.innerHTML = '';
+    empty.style.display = 'block';
     return;
   }
-  // ... (기존 렌더링)
+  empty.style.display = 'none';
+
+  // scale
+  const W=600, H=260, P=10;
+  const xs = series.map((p,i)=>i);
+  const ys = series.map(p => +p.value || 0);
+  const xmin=0, xmax=Math.max(1, xs[xs.length-1] || 1);
+  const ymin=Math.min(...ys), ymax=Math.max(...ys,1);
+  function X(x){ return P + (x-xmin)/(xmax-xmin) * (W-2*P); }
+  function Y(y){ return H-P - (y-ymin)/(ymax-ymin || 1) * (H-2*P); }
+
+  let d = '';
+  series.forEach((p,i)=>{
+    const x=X(xs[i]), y=Y(ys[i]);
+    d += (i===0?`M ${x} ${y}`:` L ${x} ${y}`);
+  });
+
+  svg.innerHTML = `
+    <rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>
+    <path d="${d}" fill="none" stroke="#7cc6ff" stroke-width="2"/>
+  `;
 }
 
+/* ---------- Community ---------- */
+function renderCommunity() {
+  const s = state.signals || {};
+  const el = document.getElementById('communityPanel');
+  const rows = [];
+  if (s.reddit)  rows.push(line('reddit',  `posts ${s.reddit.posts||0} · 👍 ${s.reddit.upvotes||0} · 💬 ${s.reddit.comments||0}`));
+  if (s.youtube) rows.push(line('YouTube',`videos ${s.youtube.videos||0} · ▶ ${s.youtube.views||0}`));
+  if (s.naver)   rows.push(line('naver',  `groups ${s.naver.groups||0} · vol ${s.naver.vol||0}`));
+  el.innerHTML = rows.join('') || '<div class="muted">근거가 부족합니다</div>';
+}
+function line(a,b){ return `<div class="mini"><b>${a}</b> — ${b}</div>`; }
 
-  document.getElementById('todayDate').textContent = (idea.created_at||'').split('T')[0] || '';
-  document.getElementById('todayTitle').textContent = idea.title_ko || idea.title || '(제목 없음)';
-  document.getElementById('todayOneLiner').textContent = idea.one_liner || '';
-  const tagsEl = document.getElementById('todayTags');
-  tagsEl.innerHTML = (idea.tags||[]).map(t=>`<span class="badge">${t}</span>`).join('');
-
-  document.getElementById('todayProblem').textContent = idea.problem || '근거가 부족합니다';
-  document.getElementById('todaySolution').textContent = idea.solution || '근거가 부족합니다';
-  document.getElementById('todayTarget').textContent = idea.target_user || '—';
-  document.getElementById('todayGTM').textContent = idea.gtm_tactics || '—';
-
-  const s = idea.score_breakdown || {};
-  const kv = Object.entries(s);
-  document.getElementById('scoreChips').innerHTML = kv.map(([k,v])=>scoreChip(k,v)).join('');
-  document.getElementById('scoreTotal').textContent = (idea.score_total??'—');
-
-  const src = (idea.sources_linked||[]).map(id => state.raw.find(r => r.raw_id===id)).filter(Boolean);
-  const srcEl = document.getElementById('sourceLinks');
-  srcEl.innerHTML = src.map(r=>`<a target="_blank" href="${r.url}">${r.source_platform||'src'}</a>`).join('');
-
-  setupTrendBlock(idea);
-  renderWhyProofGapExec(idea);
+/* ---------- Tabs ---------- */
+function bindTabs() {
+  const btns = document.querySelectorAll('.tab-btn');
+  const panels = {
+    'why': document.getElementById('tab-why'),
+    'proof': document.getElementById('tab-proof'),
+    'gap': document.getElementById('tab-gap'),
+    'exec': document.getElementById('tab-exec'),
+  };
+  btns.forEach(btn=>{
+    btn.onclick = ()=>{
+      btns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const key = btn.dataset.tab;
+      Object.values(panels).forEach(p=>p.classList.remove('active'));
+      (panels[key]||panels['why']).classList.add('active');
+    };
+  });
 }
 
-function scoreChip(label,val){
-  const nice = label.replace(/([A-Z])/g,' $1').replace(/_/g,' ').trim();
-  return `<div class="score-chip"><span>${nice}</span><b>${val ?? '—'}</b></div>`;
-}
-
-function setupTrendBlock(idea){
-  const ids = idea.trend_link || [];
-  const trends = state.trends.filter(t => ids.includes(t.trend_id));
-  const sel = document.getElementById('trendKeywordSel');
-  sel.innerHTML = trends.map(t=>`<option value="${t.trend_id}">${t.keyword}</option>`).join('');
-  sel.onchange = () => renderTrendChart(sel.value);
-  if(trends.length){ sel.value = trends[0].trend_id; renderTrendChart(trends[0].trend_id); }
-  else { document.getElementById('trendChart').innerHTML = emptyChart('관련 트렌드 없음'); document.getElementById('volVal').textContent='—'; document.getElementById('growthVal').textContent='—'; }
-
-  const ev = trends.flatMap(t => t.evidence_rawitems||[]);
-  const items = state.raw.filter(r => ev.includes(r.raw_id));
-  const group = groupBy(items, r => r.source_platform || 'src');
-  const listEl = document.getElementById('communityList');
-  listEl.innerHTML = Object.entries(group).map(([k,arr])=>{
-    const metrics = arr.reduce((acc,r)=>{
-      const c = parseInt(r.metrics_comments||0)||0, u = parseInt(r.metrics_upvotes||0)||0;
-      return { comments: acc.comments + c, upvotes: acc.upvotes + u };
-    }, {comments:0, upvotes:0});
-    return `<li><span>${k}</span><span class="chip">posts ${arr.length} · 👍 ${metrics.upvotes} · 💬 ${metrics.comments}</span></li>`;
-  }).join('') || '<li class="muted">근거가 부족합니다</li>';
-}
-
-function renderTrendChart(trendId){
-  const t = state.trends.find(x=>x.trend_id===trendId);
-  if(!t){ document.getElementById('trendChart').innerHTML = emptyChart('자료 없음'); return; }
-  document.getElementById('volVal').textContent = (t.volume ?? '—').toLocaleString('en-US');
-  document.getElementById('growthVal').textContent = t.growth_percent!=null ? (t.growth_percent*100).toFixed(1)+'%' : '—';
-
-  const holder = document.getElementById('trendChart');
-  if (Array.isArray(t.series) && t.series.length>=2){
-    const xs = t.series.map(p => (p.volume ?? p.value ?? 0));
-    holder.innerHTML = sparkline(xs);
-  } else {
-    holder.innerHTML = emptyChart('시계열 없음 — volume만 보유');
-  }
-}
-
-function sparkline(values){
-  const W=820, H=200, pad=12;
-  const min = Math.min(...values), max = Math.max(...values);
-  const norm = v => (H-pad*2) * (1 - (v-min)/(max-min || 1)) + pad;
-  const step = (W-pad*2) / Math.max(1, (values.length-1));
-  let d = ''; values.forEach((v,i)=>{ const x=pad+i*step, y=norm(v); d += (i?'L':'M')+x+','+y; });
-  return `<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}"><path d="${d}" fill="none" stroke="#7aa2ff" stroke-width="2"/></svg>`;
-}
-function emptyChart(text){ return `<div class="muted">${text}</div>`; }
-
-function renderWhyProofGapExec(idea){
-  // Why Now
-  document.getElementById('whyBody').textContent = (idea?.why_now || '근거가 부족합니다');
-  const whyCards = [
-    {title:'Market Timing Factors', body: idea?.why_market || '근거가 부족합니다'},
-    {title:'Technological Enablers', body: idea?.why_tech || '근거가 부족합니다'},
-    {title:'Risk Reduction Factors', body: idea?.why_risk || '근거가 부족합니다'},
-    {title:'Supporting Data Points', body: idea?.why_data || '근거가 부족합니다'},
-  ];
-  document.getElementById('whyCards').innerHTML = cardGrid(whyCards);
-
-  // Proof & Signals
-  const proofs = state.insights.filter(x=> !idea || x.related_idea===idea.idea_id);
-  document.getElementById('proofCards').innerHTML = proofs.length ? proofs.map(p =>
-    `<div class="info-card">
-      <h4>${p.title}</h4>
-      <div class="info-meta">Pain: ${p.pain_points_level} · Gap: ${p.solution_gap_level} · Revenue: ${p.revenue_potential}</div>
-      <p class="para">${p.notes||'근거가 부족합니다'}</p>
-    </div>`
-  ).join('') : `<div class="info-card"><p class="info-meta">근거가 부족합니다</p></div>`;
-
-  // Market Gap
-  const gapData = [
-    {title:'Underserved Segments', body: idea?.gap_segments || '근거가 부족합니다'},
-    {title:'Feature Gaps', body: idea?.gap_features || '근거가 부족합니다'},
-    {title:'Geographic Opportunities', body: idea?.gap_geo || '근거가 부족합니다'},
-    {title:'Integration Opportunities', body: idea?.gap_integrations || '근거가 부족합니다'},
-    {title:'Differentiation Levers', body: idea?.gap_diff || '근거가 부족합니다'}
-  ];
-  document.getElementById('gapCards').innerHTML = cardGrid(gapData);
-
-  // Execution Plan
-  const execData = [
-    {title:'Core Strategy', body: idea?.exec_core || '근거가 부족합니다'},
-    {title:'Lead Generation Strategy', body: idea?.exec_lead || '근거가 부족합니다'},
-    {title:'Growth Strategy', body: idea?.exec_growth || '근거가 부족합니다'},
-    {title:'Step-by-Step Execution', body: idea?.exec_steps || '근거가 부족합니다'}
-  ];
-  document.getElementById('execCards').innerHTML = cardGrid(execData);
-}
-
-function cardGrid(arr){
-  return arr.map(x=>`<div class="info-card"><h4>${x.title}</h4><p class="para">${(x.body||'').replace(/\n/g,'<br>')}</p></div>`).join('');
-}
-function groupBy(arr, keyFn){ return arr.reduce((m,x)=>{ const k=keyFn(x); (m[k]=m[k]||[]).push(x); return m; }, {}); }
+document.addEventListener('DOMContentLoaded', loadData);
