@@ -12,6 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if(target === 'home') renderHome();
     });
   });
+// === UI Labels (KR) ===
+const LABELS = {
+  appTitle: "오늘의 아이디어",
+  tabs: { why: "타이밍", proof: "증거·신호", gap: "기회 공백", exec: "실행 전략" },
+  timing: {
+    title: "왜 지금인가?",
+    boxes: {
+      market: "시장 타이밍 포인트",
+      tech: "기술 동인",
+      risk: "리스크 완화 근거",
+      data: "보강 데이터",
+    },
+  },
+  proof: { title: "증거·신호", reddit: "커뮤니티 신호", naver: "검색 신호" },
+  gap: { title: "기회 공백" },
+  exec: { title: "실행 전략" },
+};
 
   // tabs
   document.addEventListener('click', (e)=>{
@@ -24,6 +41,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadData();
 });
+const $ = (id) => document.getElementById(id);
+
+$(`appTitle`) && ($(`appTitle`).textContent = LABELS.appTitle);
+$(`btnWhyNow`) && ($(`btnWhyNow`).textContent = LABELS.tabs.why);
+$(`btnProof`) && ($(`btnProof`).textContent = LABELS.tabs.proof);
+$(`btnMarketGap`) && ($(`btnMarketGap`).textContent = LABELS.tabs.gap);
+$(`btnExecPlan`) && ($(`btnExecPlan`).textContent = LABELS.tabs.exec);
+
+$(`whyTitle`) && ($(`whyTitle`).textContent = LABELS.timing.title);
+$(`proofTitle`) && ($(`proofTitle`).textContent = LABELS.proof.title);
+$(`gapTitle`) && ($(`gapTitle`).textContent = LABELS.gap.title);
+$(`execTitle`) && ($(`execTitle`).textContent = LABELS.exec.title);
+
+$(`communityTitle`) && ($(`communityTitle`).textContent = LABELS.proof.reddit);
+$(`searchTitle`) && ($(`searchTitle`).textContent = LABELS.proof.naver);
+const $ = (id) => document.getElementById(id);
+
+$(`appTitle`) && ($(`appTitle`).textContent = LABELS.appTitle);
+$(`btnWhyNow`) && ($(`btnWhyNow`).textContent = LABELS.tabs.why);
+$(`btnProof`) && ($(`btnProof`).textContent = LABELS.tabs.proof);
+$(`btnMarketGap`) && ($(`btnMarketGap`).textContent = LABELS.tabs.gap);
+$(`btnExecPlan`) && ($(`btnExecPlan`).textContent = LABELS.tabs.exec);
+
+$(`whyTitle`) && ($(`whyTitle`).textContent = LABELS.timing.title);
+$(`proofTitle`) && ($(`proofTitle`).textContent = LABELS.proof.title);
+$(`gapTitle`) && ($(`gapTitle`).textContent = LABELS.gap.title);
+$(`execTitle`) && ($(`execTitle`).textContent = LABELS.exec.title);
+
+$(`communityTitle`) && ($(`communityTitle`).textContent = LABELS.proof.reddit);
+$(`searchTitle`) && ($(`searchTitle`).textContent = LABELS.proof.naver);
 
 async function loadData() {
   const [ideas, trends, insights, raw] = await Promise.all([
