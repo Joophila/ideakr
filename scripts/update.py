@@ -63,7 +63,12 @@ DEFAULT_SEEDS = [s for s in (os.getenv("DEFAULT_SEEDS") or "인공지능,전기�
 
 # ---------- Utils ----------
 def strip_html(s: str) -> str:
-    return BeautifulSoup(s or "", "html.parser").get_text(" ", strip=True)
+    if not s:
+        return ""
+    # URL/파일경로처럼 보이면 파싱하지 않고 그대로 사용
+    if isinstance(s, str) and re.match(r"^[a-zA-Z]+://", s):
+        return s
+    return BeautifulSoup(s, "html.parser").get_text(" ", strip=True)
 
 def as_iso(dt_any):
     if isinstance(dt_any, str):
@@ -348,37 +353,58 @@ def build_rule_based_card(items, metrics, groups)->dict:
         },
         "evidence": evidence
     }
-
-def write_full_card_with_gpt(items, trends, metrics, groups)->dict:
+    
+def write_full_card_with_gpt(items: list[dict], trends: dict, metrics: list[dict], groups: dict) -> dict:
+    """OpenAI로 카드 작성. 실패 시 규칙 기반 카드로 대체."""
+    # 키가 없으면 바로 규칙기반
     if not OPENAI_API_KEY:
-        print("CARD_SOURCE:", "rule-based (no key)")
+        print("CARD_SOURCE:", "rule-based (no OPENAI key)")
         return build_rule_based_card(items, metrics, groups)
-    from openai import OpenAI
-    client=OpenAI(api_key=OPENAI_API_KEY)
-    payload={"date_kr":NOW_KST.strftime("%Y-%m-%d"),
-             "keywordGroups":groups.get("keywordGroups",[]),
-             "topTerms":groups.get("topTerms",[])[:20],
-             "trends":trends.get("results",[])[:MAX_GROUPS],
-             "trend_metrics":metrics,
-             "articles":[{"title":it.get("title",""),"url":it.get("url","")} for it in items[:20]]}
-    sys_prompt=("너는 한국 시장 트렌드 리서처다. 아래 데이터만 근거로 과장없이 한국어 카드 작성. "
-                "정치/연예 제외. 숫자/시장규모는 근거 없으면 '알 수 없습니다' 또는 '확실하지 않음'. "
-                "JSON 하나: {title,tagline,sections{problem,solution,target_user,gtm,why_now,proof_signals,market_gap,execution_plan{core,growth,lead_gen,steps[]}},evidence[]}.")
-    user_msg="DATA:\n"+json.dumps(payload,ensure_ascii=False)
-    for m in ["gpt-4o-mini","gpt-4o"]:
+
+    # ⚠️ 클라이언트 생성 자체가 환경/버전 이슈로 실패할 수 있으므로 보호
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=OPENAI_API_KEY)
+    except Exception as e:
+        print(f"OPENAI_INIT_ERROR: {e} -> fallback to rule-based")
+        return build_rule_based_card(items, metrics, groups)
+
+    payload = {
+        "date_kr": NOW_KST.strftime("%Y-%m-%d"),
+        "keywordGroups": groups.get("keywordGroups", []),
+        "topTerms": groups.get("topTerms", [])[:20],
+        "trends": trends.get("results", [])[:MAX_GROUPS],
+        "trend_metrics": metrics,
+        "articles": [{"title": it.get("title", ""), "url": it.get("url", "")} for it in items[:20]],
+    }
+    sys_prompt = (
+        "너는 한국 시장 트렌드 리서처다. 아래 데이터(기사/키워드/검색트렌드)만 근거로 "
+        "사업화 아이디어 카드를 한국어로 작성하라. 과장 금지, 정치/연예 배제. "
+        "숫자/시장규모는 근거 없으면 '알 수 없습니다' 또는 '확실하지 않음'. "
+        "JSON 하나로 출력: {title,tagline,sections{problem,solution,target_user,gtm,why_now,proof_signals,market_gap,"
+        "execution_plan{core,growth,lead_gen,steps[]}},evidence[]}."
+    )
+    user_msg = "DATA:\n" + json.dumps(payload, ensure_ascii=False)
+
+    for m in ["gpt-4o-mini", "gpt-4o"]:
         try:
-            resp=client.chat.completions.create(model=m, temperature=0.4,
-                messages=[{"role":"system","content":sys_prompt},
-                          {"role":"user","content":user_msg}],
-                response_format={"type":"json_object"})
-            card=json.loads(resp.choices[0].message.content)
+            resp = client.chat.completions.create(
+                model=m,
+                messages=[{"role": "system", "content": sys_prompt},
+                          {"role": "user", "content": user_msg}],
+                temperature=0.4,
+                response_format={"type": "json_object"},
+            )
+            card = json.loads(resp.choices[0].message.content)
             print("CARD_SOURCE:", "gpt", m)
             return card
         except Exception as e:
             print(f"OPENAI_ERROR model={m} -> {repr(e)}")
             continue
-    print("CARD_SOURCE:", "rule-based")
+
+    print("CARD_SOURCE:", "rule-based (gpt failed)")
     return build_rule_based_card(items, metrics, groups)
+
 
 # ---------- Frontend JSON ----------
 def make_id(prefix: str, n: int)->str: return f"{prefix}_{n:04d}"
