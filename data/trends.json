@@ -9,22 +9,10 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   },
   {
     "trend_id": "tr_0002",
-    "keyword": "기술",
-    "trend_score": 0,
-    "volume": 0,
-    "growth_percent": 0.0,
-    "region": "KR",
-    "timespan": "14d",
-    "series": [],
-    "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
-  },
-  {
-    "trend_id": "tr_0003",
     "keyword": "지디넷코리아",
     "trend_score": 0,
     "volume": 0,
@@ -33,11 +21,23 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
+  },
+  {
+    "trend_id": "tr_0003",
+    "keyword": "기술",
+    "trend_score": 0,
+    "volume": 0,
+    "growth_percent": 0.0,
+    "region": "KR",
+    "timespan": "14d",
+    "series": [],
+    "evidence_rawitems": [],
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   },
   {
     "trend_id": "tr_0004",
-    "keyword": "선정",
+    "keyword": "플랫폼",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
@@ -45,11 +45,11 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   },
   {
     "trend_id": "tr_0005",
-    "keyword": "비즈니스포스트",
+    "keyword": "서비스",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
@@ -57,11 +57,11 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   },
   {
     "trend_id": "tr_0006",
-    "keyword": "혁신",
+    "keyword": "글로벌",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
@@ -69,11 +69,11 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   },
   {
     "trend_id": "tr_0007",
-    "keyword": "국내",
+    "keyword": "pv5",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
@@ -81,11 +81,11 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   },
   {
     "trend_id": "tr_0008",
-    "keyword": "차세대",
+    "keyword": "넷플릭스 tvn에서",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
@@ -93,6 +93,6 @@
     "timespan": "14d",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T01:57:32.601367+09:00"
+    "updated_at": "2025-08-25T04:12:47.788798+09:00"
   }
 ]
