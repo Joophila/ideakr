@@ -32,6 +32,8 @@ from bs4 import BeautifulSoup
 from dateutil import parser as dtp
 
 # ---------------- Config ----------------
+MAX_GROUPS_DATALAB = 5  # DataLab 요청은 5개 이내 권장
+DEFAULT_SEEDS = ["인공지능", "사업", "친환경", "AI", "구독 서비스", "부업", "부수입"]
 KST = timezone(timedelta(hours=9))
 NOW_UTC = datetime.now(timezone.utc)
 NOW_KST = NOW_UTC.astimezone(KST)
@@ -68,6 +70,38 @@ NAVER_CLIENT_SECRET = os.getenv("NAVER_CLIENT_SECRET")
 
 
 # ---------------- Utils ----------------
+def is_korean(s: str) -> bool:
+    return bool(re.search(r"[가-힣]", s or ""))
+
+def valid_for_datalab(term: str, allow_space=True) -> bool:
+    t = (term or "").strip()
+    if not t:
+        return False
+    if not allow_space and " " in t:
+        return False
+    if is_korean(t):
+        return len(t.replace(" ", "")) >= 2
+    else:
+        return len(t.replace(" ", "")) >= 3
+
+def select_groups_for_datalab(groups: list[dict], allow_space=True, include_english=True, max_groups=MAX_GROUPS_DATALAB) -> list[dict]:
+    picked = []
+    for g in groups:
+        name = g.get("groupName") or ""
+        kws  = g.get("keywords") or []
+        # 대표어 1개만 검증
+        rep = name if name else (kws[0] if kws else "")
+        if not rep:
+            continue
+        if not include_english and not is_korean(rep):
+            continue
+        if not valid_for_datalab(rep, allow_space=allow_space):
+            continue
+        picked.append({"groupName": rep, "keywords": [rep]})
+        if len(picked) >= max_groups:
+            break
+    return picked
+
 def strip_html(s: str) -> str:
     if not s:
         return ""
@@ -296,16 +330,17 @@ def naver_datalab(keyword_groups: list[dict], days=DATALAB_DAYS) -> dict:
     end_kst = NOW_KST.date()
     start_kst = (NOW_KST - timedelta(days=days)).date()
     body = {
-        "startDate": str(start_kst),
-        "endDate": str(end_kst),
-        "timeUnit": "date",
-        "keywordGroups": [
-            {"groupName": g["groupName"], "keywords": g["keywords"][:3]} for g in keyword_groups[:MAX_GROUPS]
-        ],
-        "device": "",
-        "ages": [],
-        "gender": "",
-    }
+    "startDate": str(start_kst),
+    "endDate": str(end_kst),
+    "timeUnit": "date",
+    "keywordGroups": [
+        {"groupName": g["groupName"], "keywords": g["keywords"][:3]}
+        for g in keyword_groups[:MAX_GROUPS_DATALAB]
+    ],
+    "device": "",
+    "ages": [],
+    "gender": "",
+}
     headers = {
         "X-Naver-Client-Id": NAVER_CLIENT_ID,
         "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
@@ -584,9 +619,23 @@ def main():
         uniq.append(it)
     items = uniq
 
-    # 6) DataLab
-    datalab = naver_datalab(signals.get("keywordGroups", []), days=DATALAB_DAYS)
+        # 6) DataLab (키워드 선별 → 실패 시 대체 시드 → 대체 전략 2차)
+    groups_all = signals.get("keywordGroups", [])
+    dl_groups = select_groups_for_datalab(groups_all, allow_space=True, include_english=True)
+
+    if not dl_groups:
+        print("DATALAB_INFO: no valid groups from signals, using DEFAULT_SEEDS")
+        dl_groups = [{"groupName": s, "keywords": [s]} for s in DEFAULT_SEEDS]
+
+    datalab = naver_datalab(dl_groups, days=DATALAB_DAYS)
+    if not datalab.get("results"):
+        print("DATALAB_EMPTY: trying fallback (no-space & Korean-only)")
+        dl_groups2 = select_groups_for_datalab(groups_all, allow_space=False, include_english=False)
+        if dl_groups2:
+            datalab = naver_datalab(dl_groups2, days=DATALAB_DAYS)
+
     metrics = extract_trend_metrics(datalab)
+
 
     # 7) 점수
     scores = score_from_metrics(metrics, items)
