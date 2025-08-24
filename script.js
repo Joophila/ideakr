@@ -73,26 +73,44 @@ $(`communityTitle`) && ($(`communityTitle`).textContent = LABELS.proof.reddit);
 $(`searchTitle`) && ($(`searchTitle`).textContent = LABELS.proof.naver);
 
 async function loadData() {
-  const [ideas, trends, insights, raw] = await Promise.all([
-    fetch('data/ideas.json?cb='+Date.now()).then(r=>r.json()),
-    fetch('data/trends.json?cb='+Date.now()).then(r=>r.json()),
-    fetch('data/insights.json?cb='+Date.now()).then(r=>r.json()),
-    fetch('data/rawitems.json?cb='+Date.now()).then(r=>r.json()),
-  ]);
-  state.ideas = ideas||[]; state.trends = trends||[]; state.insights = insights||[]; state.raw = raw||[];
+  try {
+    const [ideas, trends, insights, raw] = await Promise.all([
+      fetch('data/ideas.json?cb='+Date.now()).then(r=>r.json()),
+      fetch('data/trends.json?cb='+Date.now()).then(r=>r.json()),
+      fetch('data/insights.json?cb='+Date.now()).then(r=>r.json()),
+      fetch('data/rawitems.json?cb='+Date.now()).then(r=>r.json()),
+    ]);
+    state.ideas = Array.isArray(ideas) ? ideas : [];
+    state.trends = Array.isArray(trends) ? trends : [];
+    state.insights = Array.isArray(insights) ? insights : [];
+    state.raw = Array.isArray(raw) ? raw : [];
+  } catch (e) {
+    console.error('loadData error', e);
+    state.ideas = state.trends = state.insights = state.raw = [];
+  }
   renderHome();
 }
 
-// ---------- Today detail ----------
 function pickTodayIdea() {
-  const todays = state.ideas.filter(i => i.is_today);
+  const todays = state.ideas.filter(i => i && i.is_today);
   if (todays.length) return todays[0];
-  return [...state.ideas].sort((a,b)=> (b.score_total||0) - (a.score_total||0))[0];
+  return state.ideas.sort((a,b)=>(b?.score_total||0)-(a?.score_total||0))[0];
 }
 
 function renderHome() {
   const idea = pickTodayIdea();
-  if(!idea){ document.getElementById('todayTitle').textContent = '데이터 없음'; return; }
+  if (!idea) {
+    document.getElementById('todayTitle').textContent = '데이터 없음';
+    document.getElementById('todayOneLiner').textContent = '데이터 파일이 비어있거나 로딩 실패';
+    // 점수/그래프/커뮤니티도 모두 ‘—’로 초기화
+    document.getElementById('overallScore').textContent = '—';
+    document.getElementById('trendChart').innerHTML = emptyChart('데이터 없음');
+    document.getElementById('communityList').innerHTML = '';
+    return;
+  }
+  // ... (기존 렌더링)
+}
+
 
   document.getElementById('todayDate').textContent = (idea.created_at||'').split('T')[0] || '';
   document.getElementById('todayTitle').textContent = idea.title_ko || idea.title || '(제목 없음)';
