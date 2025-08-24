@@ -20,6 +20,13 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # 👇 여기 추가: 생성된 JSON 앞부분을 로그로 미리 보기
+      - name: Peek json heads
+        run: |
+          echo "=== ideas.json ==="; head -n 30 data/ideas.json || true
+          echo "=== trends.json ==="; head -n 30 data/trends.json || true
+          echo "=== rawitems.json ==="; head -n 10 data/rawitems.json || true
+
       - name: Run updater
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -38,3 +45,4 @@ jobs:
           else
             echo "No changes"
           fi
+
