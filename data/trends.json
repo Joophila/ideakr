@@ -1,347 +1,123 @@
 [
   {
-    "trend_id": "tr_0001",
-    "keyword": "스타트업",
-    "trend_score": 0,
-    "volume": 0,
-    "growth_percent": 0.0,
+    "trend_id": "tr_0002",
+    "keyword": "리필 스테이션",
+    "trend_score": 100,
+    "volume": 745.2598799999998,
+    "growth_percent": -0.7,
     "region": "KR",
-    "timespan": "14d",
+    "timespan": "12w",
     "series": [
       {
-        "date": "2025-08-12",
-        "value": 0
+        "date": "2025-06-02",
+        "value": 100.0
       },
       {
-        "date": "2025-08-13",
-        "value": 0
+        "date": "2025-06-09",
+        "value": 94.80122
       },
       {
-        "date": "2025-08-14",
-        "value": 0
+        "date": "2025-06-16",
+        "value": 61.7737
       },
       {
-        "date": "2025-08-15",
-        "value": 0
+        "date": "2025-06-23",
+        "value": 67.58409
       },
       {
-        "date": "2025-08-16",
-        "value": 0
+        "date": "2025-06-30",
+        "value": 57.18654
       },
       {
-        "date": "2025-08-17",
-        "value": 0
+        "date": "2025-07-07",
+        "value": 78.59327
+      },
+      {
+        "date": "2025-07-14",
+        "value": 62.07951
+      },
+      {
+        "date": "2025-07-21",
+        "value": 51.37614
+      },
+      {
+        "date": "2025-07-28",
+        "value": 37.00305
+      },
+      {
+        "date": "2025-08-04",
+        "value": 52.90519
+      },
+      {
+        "date": "2025-08-11",
+        "value": 38.22629
       },
       {
         "date": "2025-08-18",
-        "value": 0
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0
-      },
-      {
-        "date": "2025-08-24",
-        "value": 0
-      },
-      {
-        "date": "2025-08-25",
-        "value": 0
+        "value": 43.73088
       }
     ],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T05:57:07.325266+09:00"
+    "updated_at": "2025-08-25T09:33:31.687698+09:00"
   },
   {
-    "trend_id": "tr_0002",
-    "keyword": "AI 자동화",
+    "trend_id": "tr_0001",
+    "keyword": "살롱 예약",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
-    "timespan": "14d",
-    "series": [
-      {
-        "date": "2025-08-12",
-        "value": 0
-      },
-      {
-        "date": "2025-08-13",
-        "value": 0
-      },
-      {
-        "date": "2025-08-14",
-        "value": 0
-      },
-      {
-        "date": "2025-08-15",
-        "value": 0
-      },
-      {
-        "date": "2025-08-16",
-        "value": 0
-      },
-      {
-        "date": "2025-08-17",
-        "value": 0
-      },
-      {
-        "date": "2025-08-18",
-        "value": 0
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0
-      },
-      {
-        "date": "2025-08-24",
-        "value": 0
-      },
-      {
-        "date": "2025-08-25",
-        "value": 0
-      }
-    ],
+    "timespan": "12w",
+    "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T05:57:07.325283+09:00"
+    "updated_at": "2025-08-25T09:33:30.845591+09:00"
   },
   {
     "trend_id": "tr_0003",
-    "keyword": "물류 최적화",
+    "keyword": "재활용 포장",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
-    "timespan": "14d",
-    "series": [
-      {
-        "date": "2025-08-12",
-        "value": 0
-      },
-      {
-        "date": "2025-08-13",
-        "value": 0
-      },
-      {
-        "date": "2025-08-14",
-        "value": 0
-      },
-      {
-        "date": "2025-08-15",
-        "value": 0
-      },
-      {
-        "date": "2025-08-16",
-        "value": 0
-      },
-      {
-        "date": "2025-08-17",
-        "value": 0
-      },
-      {
-        "date": "2025-08-18",
-        "value": 0
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0
-      },
-      {
-        "date": "2025-08-24",
-        "value": 0
-      },
-      {
-        "date": "2025-08-25",
-        "value": 0
-      }
-    ],
+    "timespan": "12w",
+    "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T05:57:07.325294+09:00"
+    "updated_at": "2025-08-25T09:33:32.514044+09:00"
   },
   {
     "trend_id": "tr_0004",
-    "keyword": "에너지 관리",
+    "keyword": "동네 물류",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
-    "timespan": "14d",
-    "series": [
-      {
-        "date": "2025-08-12",
-        "value": 0
-      },
-      {
-        "date": "2025-08-13",
-        "value": 0
-      },
-      {
-        "date": "2025-08-14",
-        "value": 0
-      },
-      {
-        "date": "2025-08-15",
-        "value": 0
-      },
-      {
-        "date": "2025-08-16",
-        "value": 0
-      },
-      {
-        "date": "2025-08-17",
-        "value": 0
-      },
-      {
-        "date": "2025-08-18",
-        "value": 0
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0
-      },
-      {
-        "date": "2025-08-24",
-        "value": 0
-      },
-      {
-        "date": "2025-08-25",
-        "value": 0
-      }
-    ],
+    "timespan": "12w",
+    "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T05:57:07.325305+09:00"
+    "updated_at": "2025-08-25T09:33:33.149369+09:00"
   },
   {
     "trend_id": "tr_0005",
-    "keyword": "리테일 분석",
+    "keyword": "노코드 자동화",
     "trend_score": 0,
     "volume": 0,
     "growth_percent": 0.0,
     "region": "KR",
-    "timespan": "14d",
-    "series": [
-      {
-        "date": "2025-08-12",
-        "value": 0
-      },
-      {
-        "date": "2025-08-13",
-        "value": 0
-      },
-      {
-        "date": "2025-08-14",
-        "value": 0
-      },
-      {
-        "date": "2025-08-15",
-        "value": 0
-      },
-      {
-        "date": "2025-08-16",
-        "value": 0
-      },
-      {
-        "date": "2025-08-17",
-        "value": 0
-      },
-      {
-        "date": "2025-08-18",
-        "value": 0
-      },
-      {
-        "date": "2025-08-19",
-        "value": 0
-      },
-      {
-        "date": "2025-08-20",
-        "value": 0
-      },
-      {
-        "date": "2025-08-21",
-        "value": 0
-      },
-      {
-        "date": "2025-08-22",
-        "value": 0
-      },
-      {
-        "date": "2025-08-23",
-        "value": 0
-      },
-      {
-        "date": "2025-08-24",
-        "value": 0
-      },
-      {
-        "date": "2025-08-25",
-        "value": 0
-      }
-    ],
+    "timespan": "12w",
+    "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-08-25T05:57:07.325315+09:00"
+    "updated_at": "2025-08-25T09:33:34.166765+09:00"
+  },
+  {
+    "trend_id": "tr_0006",
+    "keyword": "반려동물 헬스",
+    "trend_score": 0,
+    "volume": 0,
+    "growth_percent": 0.0,
+    "region": "KR",
+    "timespan": "12w",
+    "series": [],
+    "evidence_rawitems": [],
+    "updated_at": "2025-08-25T09:33:35.032958+09:00"
   }
 ]
