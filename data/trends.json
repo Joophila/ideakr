@@ -3,8 +3,8 @@
     "trend_id": "tr_0002",
     "keyword": "리필 스테이션",
     "trend_score": 100,
-    "volume": 871.5952699999999,
-    "growth_percent": -0.578,
+    "volume": 876.2645299999999,
+    "growth_percent": -0.57,
     "region": "KR",
     "timespan": "12w",
     "series": [
@@ -58,11 +58,11 @@
       },
       {
         "date": "2025-09-22",
-        "value": 43.57976
+        "value": 48.24902
       }
     ],
     "evidence_rawitems": [],
-    "updated_at": "2025-09-27T00:13:38.563974+09:00"
+    "updated_at": "2025-09-28T00:11:05.789512+09:00"
   },
   {
     "trend_id": "tr_0001",
@@ -74,7 +74,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-09-27T00:13:38.117410+09:00"
+    "updated_at": "2025-09-28T00:11:05.305668+09:00"
   },
   {
     "trend_id": "tr_0003",
@@ -86,7 +86,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-09-27T00:13:39.218972+09:00"
+    "updated_at": "2025-09-28T00:11:06.503861+09:00"
   },
   {
     "trend_id": "tr_0004",
@@ -98,7 +98,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-09-27T00:13:39.967373+09:00"
+    "updated_at": "2025-09-28T00:11:06.984492+09:00"
   },
   {
     "trend_id": "tr_0005",
@@ -110,7 +110,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-09-27T00:13:40.421236+09:00"
+    "updated_at": "2025-09-28T00:11:07.609360+09:00"
   },
   {
     "trend_id": "tr_0006",
@@ -122,6 +122,6 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-09-27T00:13:41.039026+09:00"
+    "updated_at": "2025-09-28T00:11:08.089065+09:00"
   }
 ]
