@@ -58,7 +58,7 @@
       }
     ],
     "evidence_rawitems": [],
-    "updated_at": "2025-10-07T00:13:08.844539+09:00"
+    "updated_at": "2025-10-08T00:14:01.047700+09:00"
   },
   {
     "trend_id": "tr_0001",
@@ -70,7 +70,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-10-07T00:13:08.195567+09:00"
+    "updated_at": "2025-10-08T00:14:00.482257+09:00"
   },
   {
     "trend_id": "tr_0003",
@@ -82,7 +82,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-10-07T00:13:09.420010+09:00"
+    "updated_at": "2025-10-08T00:14:01.610813+09:00"
   },
   {
     "trend_id": "tr_0004",
@@ -94,7 +94,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-10-07T00:13:10.004141+09:00"
+    "updated_at": "2025-10-08T00:14:02.173820+09:00"
   },
   {
     "trend_id": "tr_0005",
@@ -106,7 +106,7 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-10-07T00:13:10.661182+09:00"
+    "updated_at": "2025-10-08T00:14:02.901063+09:00"
   },
   {
     "trend_id": "tr_0006",
@@ -118,6 +118,6 @@
     "timespan": "12w",
     "series": [],
     "evidence_rawitems": [],
-    "updated_at": "2025-10-07T00:13:11.259349+09:00"
+    "updated_at": "2025-10-08T00:14:03.627737+09:00"
   }
 ]
